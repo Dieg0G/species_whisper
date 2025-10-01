@@ -1,5 +1,0 @@
-fastapi = 0.118.0
-uvicorn = 0.37.0
-python-multipart = 0.0.20
-pillow = 10.2.0
-pygame = 2.6.1
