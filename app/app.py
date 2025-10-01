@@ -16,6 +16,7 @@ def index():
         if file:
             # Guardar temporalmente en la carpeta static para reproducirlo
             save_path = os.path.join("static", file.filename)
+            os.makedirs(os.path.dirname(save_path), exist_ok=True)  # crea la carpeta si no existe
             file.save(save_path)
             audio_filename = file.filename
     return render_template(
