@@ -1,216 +1,74 @@
 """
 audio_processor.py
-Módulo para procesamiento de audio y conversión a espectrogramas Mel
-para el proyecto BirdWhisper
+Módulo para procesamiento de audio para el proyecto BirdWhisper
 """
 
 import numpy as np
 import librosa
 import logging
 
-# Configurar logging
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
-
+# Configuración del logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 class AudioProcessor:
-    """
-    Clase para procesar archivos de audio y convertirlos a espectrogramas Mel
-    compatibles con BirdNET
-    """
-    
-    def __init__(self, sample_rate=48000, duration=3.0, n_mels=128):
-        """
-        Inicializa el procesador de audio
-        
-        Args:
-            sample_rate (int): Frecuencia de muestreo en Hz (BirdNET usa 48kHz)
-            duration (float): Duración del segmento de audio en segundos
-            n_mels (int): Número de bandas Mel
-        """
+    def __init__(self, sample_rate=48000, segment_duration=3):
         self.sample_rate = sample_rate
-        self.duration = duration
-        self.n_mels = n_mels
-        self.n_samples = int(sample_rate * duration)
-        
-        logger.info(f"AudioProcessor inicializado: SR={sample_rate}Hz, "
-                   f"duración={duration}s, n_mels={n_mels}")
-    
-    def load_audio(self, audio_path):
+        self.segment_duration = segment_duration
+        self.segment_length = self.sample_rate * self.segment_duration
+        logging.info(f"AudioProcessor inicializado con sample_rate={self.sample_rate} y segment_duration={self.segment_duration}s.")
+
+    def process_audio_file(self, file_path):
         """
-        Carga un archivo de audio
-        
-        Args:
-            audio_path (str): Ruta al archivo de audio
-            
-        Returns:
-            np.ndarray: Señal de audio normalizada
+        Carga un archivo de audio, lo normaliza y lo divide en segmentos de la duración especificada.
+        Devuelve un generador que produce cada segmento de audio.
         """
         try:
-            # Cargar audio y remuestrear si es necesario
-            audio, sr = librosa.load(audio_path, sr=self.sample_rate, mono=True)
-            logger.info(f"Audio cargado: {audio_path} ({len(audio)} muestras)")
-            return audio
+            logging.info(f"Procesando archivo de audio: {file_path}")
+            # Cargar el archivo de audio con la frecuencia de muestreo deseada
+            audio, sr = librosa.load(file_path, sr=self.sample_rate, mono=True)
+            logging.info(f"Archivo cargado. Duración: {len(audio) / sr:.2f}s, Frecuencia de muestreo: {sr}Hz.")
+
+            # Normalizar el audio al rango [-1, 1]
+            if np.max(np.abs(audio)) > 0:
+                audio = audio / np.max(np.abs(audio))
+            
+            logging.info(f"Audio normalizado. Dividiendo en segmentos de {self.segment_length} muestras.")
+
+            # Dividir el audio en segmentos de `self.segment_length`
+            for i in range(0, len(audio), self.segment_length):
+                segment = audio[i:i + self.segment_length]
+
+                # Rellenar el último segmento si es más corto
+                if len(segment) < self.segment_length:
+                    pad_width = self.segment_length - len(segment)
+                    segment = np.pad(segment, (0, pad_width), 'constant')
+                    logging.info(f"Segmento final rellenado con {pad_width} ceros.")
+
+                # Asegurar que el segmento tiene la forma (1, segment_length) y es float32
+                processed_segment = np.array(segment, dtype=np.float32).reshape(1, -1)
+                
+                logging.info(f"Produciendo segmento con forma: {processed_segment.shape} y tipo: {processed_segment.dtype}")
+                yield processed_segment
+
         except Exception as e:
-            logger.error(f"Error al cargar audio: {e}")
-            raise
-    
-    def normalize_audio(self, audio):
-        """
-        Normaliza la señal de audio
-        
-        Args:
-            audio (np.ndarray): Señal de audio
-            
-        Returns:
-            np.ndarray: Señal normalizada
-        """
-        if len(audio) == 0:
-            return audio
-        
-        # Normalización entre -1 y 1
-        max_val = np.abs(audio).max()
-        if max_val > 0:
-            audio = audio / max_val
-        
-        return audio
-    
-    def segment_audio(self, audio, overlap=0.0):
-        """
-        Divide el audio en segmentos de duración fija
-        
-        Args:
-            audio (np.ndarray): Señal de audio completa
-            overlap (float): Solapamiento entre segmentos (0.0 a 1.0)
-            
-        Returns:
-            list: Lista de segmentos de audio
-        """
-        segments = []
-        step = int(self.n_samples * (1 - overlap))
-        
-        for start in range(0, len(audio), step):
-            end = start + self.n_samples
-            segment = audio[start:end]
-            
-            # Padding si el segmento es más corto
-            if len(segment) < self.n_samples:
-                segment = np.pad(segment, (0, self.n_samples - len(segment)), 
-                               mode='constant')
-            
-            segments.append(segment)
-        
-        logger.info(f"Audio segmentado en {len(segments)} partes")
-        return segments
-    
-    def compute_mel_spectrogram(self, audio):
-        """
-        Calcula el espectrograma Mel de un segmento de audio
-        
-        Args:
-            audio (np.ndarray): Segmento de audio
-            
-        Returns:
-            np.ndarray: Espectrograma Mel
-        """
-        try:
-            # Calcular espectrograma Mel
-            mel_spec = librosa.feature.melspectrogram(
-                y=audio,
-                sr=self.sample_rate,
-                n_mels=self.n_mels,
-                fmax=self.sample_rate // 2
-            )
-            
-            # Convertir a escala logarítmica (dB)
-            mel_spec_db = librosa.power_to_db(mel_spec, ref=np.max)
-            
-            # Normalizar entre 0 y 1
-            mel_spec_norm = (mel_spec_db - mel_spec_db.min()) / \
-                           (mel_spec_db.max() - mel_spec_db.min() + 1e-6)
-            
-            return mel_spec_norm
-        
-        except Exception as e:
-            logger.error(f"Error al calcular espectrograma Mel: {e}")
-            raise
-    
-    def prepare_for_model(self, mel_spec):
-        """
-        Prepara el espectrograma para el modelo BirdNET
-        
-        Args:
-            mel_spec (np.ndarray): Espectrograma Mel
-            
-        Returns:
-            np.ndarray: Espectrograma formateado para el modelo
-        """
-        # BirdNET espera formato (1, height, width, 1) para TFLite
-        # Transponer para tener tiempo en el eje horizontal
-        mel_spec = mel_spec.T
-        
-        # Añadir dimensiones batch y canal
-        mel_spec = np.expand_dims(mel_spec, axis=0)  # Batch
-        mel_spec = np.expand_dims(mel_spec, axis=-1)  # Canal
-        
-        # Convertir a float32
-        mel_spec = mel_spec.astype(np.float32)
-        
-        logger.debug(f"Espectrograma preparado con shape: {mel_spec.shape}")
-        return mel_spec
-    
-    def process_audio_file(self, audio_path):
-        """
-        Pipeline completo: carga, segmenta y procesa un archivo de audio
-        
-        Args:
-            audio_path (str): Ruta al archivo de audio
-            
-        Returns:
-            list: Lista de espectrogramas listos para el modelo
-        """
-        # Cargar y normalizar audio
-        audio = self.load_audio(audio_path)
-        audio = self.normalize_audio(audio)
-        
-        # Segmentar audio
-        segments = self.segment_audio(audio, overlap=0.0)
-        
-        # Procesar cada segmento
-        spectrograms = []
-        for i, segment in enumerate(segments):
-            mel_spec = self.compute_mel_spectrogram(segment)
-            mel_spec_prepared = self.prepare_for_model(mel_spec)
-            spectrograms.append(mel_spec_prepared)
-            logger.debug(f"Segmento {i+1}/{len(segments)} procesado")
-        
-        logger.info(f"Pipeline completado: {len(spectrograms)} espectrogramas generados")
-        return spectrograms
-
-
-# En src/data/audio_processor.py
-
-# ... (código existente) ...
+            logging.error(f"Error al procesar el archivo de audio {file_path}: {e}")
+            return
 
 # Ejemplo de uso
-if __name__ == "__main__":
-    # Test básico del procesador
-    processor = AudioProcessor()
+if __name__ == '__main__':
+    # Ruta al archivo de audio de prueba
+    test_audio_path = 'c:/Users/ScitechNAdventure/uao/species_whisper/tests/test_audio/2.wav'
     
-    print("AudioProcessor inicializado correctamente")
-    print(f"Configuración:")
-    print(f"  - Sample Rate: {processor.sample_rate} Hz")
-    print(f"  - Duración: {processor.duration} segundos")
-    print(f"  - Bandas Mel: {processor.n_mels}")
-
-    # --- Añade esto para probar con un archivo ---
-    try:
-        # Asegúrate de que este archivo exista
-        test_audio_file = "tests/test_audio/1.wav" 
-        print(f"\nProbando con el archivo: {test_audio_file}")
-        spectrograms = processor.process_audio_file(test_audio_file)
-        print(f"✓ Se generaron {len(spectrograms)} espectrogramas.")
-        print(f"   - Shape del primer espectrograma: {spectrograms[0].shape}")
-    except Exception as e:
-        print(f"✗ Error durante la prueba: {e}")
-    # -----------------------------------------
+    # Crear una instancia del procesador de audio
+    audio_processor = AudioProcessor()
+    
+    # Procesar el archivo y obtener los segmentos
+    segment_generator = audio_processor.process_audio_file(test_audio_path)
+    
+    # Iterar sobre los segmentos generados
+    for i, segment in enumerate(segment_generator):
+        logging.info(f"Segmento {i+1} procesado. Forma: {segment.shape}, Tipo: {segment.dtype}, min: {np.min(segment)}, max: {np.max(segment)}")
+        # Aquí es donde pasarías el 'segment' al modelo para la predicción
+        # Ejemplo: classifier.predict(segment)
+    
+    logging.info("Procesamiento de audio completado.")
