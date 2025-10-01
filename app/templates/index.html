@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Species Whisper</title>
+    <!-- Favicon -->
+    <link rel="icon" href="{{ url_for('static', filename=icono) }}" type="image/png">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Segoe UI", sans-serif;
+            background: url("{{ url_for('static', filename=fondoimagen) }}") no-repeat center center fixed;
+            background-size: cover;
+            color: #2F4F4F;
+        }
+        .container {
+            padding: 40px;
+            background-color: rgba(255, 255, 255, 0.3);
+            max-width: 400px;
+            margin: 50px;
+            border-radius: 15px;
+        }
+        input, button {
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 8px;
+            border-radius: 10px;
+            border: none;
+        }
+        button {
+            background-color: #A3C9A8;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        button:hover {
+            background-color: #86BCA3;
+        }
+    </style>
+</head>
+<body>
+    <audio id="bg-audio" src="{{ url_for('static', filename=troglodites) }}" autoplay loop></audio>
+
+    <div class="container">
+        <h2>Reconocimiento de Cantos de Aves</h2>
+
+        <form method="POST" enctype="multipart/form-data">
+            <input type="file" name="audio_file" accept=".wav,.mp3">
+            <button type="submit">Cargar Audio</button>
+        </form>
+
+        {% if audio_filename %}
+        <p>Archivo cargado: {{ audio_filename }}</p>
+        <audio controls>
+            <source src="{{ url_for('static', filename=canto) }}" type="audio/mpeg">
+            Tu navegador no soporta audio.
+        </audio>
+        {% endif %}
+    </div>
+</body>
+</html>
