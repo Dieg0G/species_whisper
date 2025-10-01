@@ -3,26 +3,28 @@ import os
 
 app = Flask(__name__)
 
-# Rutas de los archivos estáticos
-BACKGROUND_IMAGE = "app/static/fondoimagen.JPG"
-BACKGROUND_AUDIO = "app/static/troglodites.mp3"
-ICON_IMAGE = "app/static/icono.png"
+# Variables de los archivos estáticos
+BACKGROUND_IMAGE = "fondoimagen.JPG"
+BACKGROUND_AUDIO = "troglodites.mp3"
+ICON_IMAGE = "icono.png"
 
 @app.route("/", methods=["GET", "POST"])
 def index():
-    canto = None
+    audio_filename = None
     if request.method == "POST":
         file = request.files.get("audio_file")
         if file:
-            # Guardar temporalmente en carpeta media
-            save_path = os.path.join("..", "data", "raw", file.filename)
+            # Guardar temporalmente en la carpeta static para reproducirlo
+            save_path = os.path.join("static", file.filename)
             file.save(save_path)
-            audio = file.filename
-    return render_template("index.html",
-                           background_image="app/static/fondoimagen.JPG",
-                           background_audio="app/static/troglodites.mp3",
-                           icon_image="app/static/icono.png",
-                           audio_filename=canto)
+            audio_filename = file.filename
+    return render_template(
+        "index.html",
+        background_image=BACKGROUND_IMAGE,
+        background_audio=BACKGROUND_AUDIO,
+        icon_image=ICON_IMAGE,
+        audio_filename=audio_filename
+    )
 
 if __name__ == "__main__":
     app.run(debug=True)
