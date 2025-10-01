@@ -15,14 +15,19 @@ def index():
         file = request.files.get("audio_file")
         if file:
             # Guardar temporalmente en la carpeta static para reproducirlo
-            save_path = os.path.join("static", file.filename)
-            os.makedirs(os.path.dirname(save_path), exist_ok=True)  # crea la carpeta si no existe
-            file.save(save_path)
+            raw_path = os.path.join("data", "raw", file.filename)
+            os.makedirs(os.path.dirname(raw_path), exist_ok=True)
+            file.save(raw_path)
+
+            # Copiar a static para que se reproduzca
+            static_path = os.path.join("app", "static", file.filename)
+            import shutil
+            shutil.copy(raw_path, static_path)
+
             audio_filename = file.filename
     return render_template(
         "index.html",
         background_image=BACKGROUND_IMAGE,
-        background_audio=BACKGROUND_AUDIO,
         icon_image=ICON_IMAGE,
         audio_filename=audio_filename
     )

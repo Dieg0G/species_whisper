@@ -41,7 +41,7 @@
 </head>
 <body>
     <!-- Audio de fondo -->
-    <audio id="bg-audio" src="{{ url_for('static', filename=background_audio) }}" autoplay loop></audio>
+    <audio id="bg-audio" src="{{ url_for('static', filename=background_audio) }}" autoplay ></audio>
 
     <div class="container">
         <h2>Reconocimiento de Cantos de Aves</h2>
@@ -50,14 +50,14 @@
             <input type="file" name="audio_file" accept=".wav,.mp3">
             <button type="submit">Cargar Audio</button>
         </form>
-
         {% if audio_filename %}
-            <p>Archivo cargado: {{ audio_filename }}</p>
+            <h3>Audio Cargado:</h3>
             <audio controls>
-                <source src="{{ url_for('static', filename=audio_filename) }}" type="audio/mpeg">
-                Tu navegador no soporta audio.
+                <source src="{{ url_for('static', filename=audio_filename) }}" type="audio/wav">
+                Tu navegador no soporta el elemento de audio.
             </audio>
         {% endif %}
+        
     </div>
 </body>
 </html>
