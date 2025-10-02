@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Species Whisper</title>
-    <!-- Favicon -->
     <link rel="icon" href="{{ url_for('static', filename=icon_image) }}" type="image/png">
     <style>
         body {
@@ -37,11 +36,46 @@
         button:hover {
             background-color: #86BCA3;
         }
+        .identify-btn {
+            margin-top: 20px; 
+        }
+
+        /* === Sección resultados === */
+        .results {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 30px 50px;
+        }
+        .results img {
+            width: 100%;
+            aspect-ratio: 4/3;
+            object-fit: cover;
+            border-radius: 15px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .description-box {
+            grid-column: span 2;
+            padding: 20px;
+            border-radius: 15px;
+            background-color: rgba(255,255,255,0.3);
+        }
+        .description-box h3 {
+            margin-top: 0;
+            font-size: 20px;
+            color: #2F4F4F;
+        }
+        .description-box p {
+            font-size: 14px;
+            color: #004d40;  /* texto resaltante */
+            font-weight: 500;
+        }
     </style>
 </head>
 <body>
     <!-- Audio de fondo -->
-    <audio id="bg-audio" src="{{ url_for('static', filename=background_audio) }}" autoplay ></audio>
+    <audio id="bg-audio" src="{{ url_for('static', filename=background_audio) }}" autoplay></audio>
 
     <div class="container">
         <h2>Reconocimiento de Cantos de Aves</h2>
@@ -50,14 +84,33 @@
             <input type="file" name="audio_file" accept=".wav,.mp3">
             <button type="submit">Cargar Audio</button>
         </form>
+
         {% if audio_filename %}
             <h3>Audio Cargado:</h3>
             <audio controls>
                 <source src="{{ url_for('static', filename=audio_filename) }}" type="audio/wav">
                 Tu navegador no soporta el elemento de audio.
             </audio>
+
+            <!-- Botón Identificar Ave -->
+            <form method="POST" action="/identify">
+                <button type="submit" class="identify-btn">Identificar ave</button>
+            </form>
         {% endif %}
-        
     </div>
+
+    <!-- Sección de resultados (aparecerá tras identificación) -->
+    {% if identified_species %}
+    <div class="results">
+        <img src="{{ url_for('static', filename=identified_species_image) }}" alt="Especie identificada">
+        <img src="{{ url_for('static', filename=distribution_map_image) }}" alt="Mapa distribución">
+        
+        <div class="description-box">
+            <h3>Descripción de la Especie</h3>
+            <p>{{ species_description }}</p>
+        </div>
+    </div>
+    {% endif %}
 </body>
 </html>
+
