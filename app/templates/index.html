@@ -5,112 +5,227 @@
     <title>Species Whisper</title>
     <link rel="icon" href="{{ url_for('static', filename=icon_image) }}" type="image/png">
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: "Segoe UI", sans-serif;
+        /* ===== Página ===== */
+        *{box-sizing:border-box}
+        body{
+            margin:0;
+            font-family:"Segoe UI", sans-serif;
             background: url("{{ url_for('static', filename=background_image) }}") no-repeat center center fixed;
             background-size: cover;
-            color: #2F4F4F;
-        }
-        .container {
-            padding: 40px;
-            background-color: rgba(255, 255, 255, 0.3);
-            max-width: 400px;
-            margin: 50px;
-            border-radius: 15px;
-        }
-        input, button {
-            display: block;
-            width: 100%;
-            margin-bottom: 10px;
-            padding: 8px;
-            border-radius: 10px;
-            border: none;
-            font-size: 14px;
-        }
-        button {
-            background-color: #A3C9A8;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #86BCA3;
-        }
-        .identify-btn {
-            margin-top: 20px; 
+            color:#123;
+            min-height:100vh;
+            padding:30px;
         }
 
-        /* === Sección resultados === */
-        .results {
-            display: grid;
+        /* ===== Grid principal: izquierda (fija) y derecha (contenido) ===== */
+        .layout{
+            display:grid;
+            grid-template-columns:420px 1fr;
+            gap:30px;
+            align-items:start;
+        }
+
+        /* ===== Panel izquierdo (transparente) ===== */
+        .container{
+            background: rgba(255,255,255,0.22);
+            backdrop-filter: blur(6px);
+            padding:28px;
+            border-radius:22px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+        }
+        .container h2{
+            text-align:center;
+            margin:0 0 18px;
+            font-size:28px;
+            color:#234;
+            font-weight:800;
+        }
+
+        input[type="file"]{
+            width:100%;
+            padding:10px;
+            border-radius:10px;
+            border:1px solid rgba(0,0,0,0.08);
+            background:transparent;
+            cursor:pointer;
+        }
+        .btn{
+            width:100%;
+            padding:12px;
+            border-radius:14px;
+            border:none;
+            margin-top:12px;
+            background:#A3C9A8;
+            font-weight:700;
+            cursor:pointer;
+        }
+        .btn:hover{ background:#86BCA3 }
+
+        /* ===== Sección audio (invisible hasta que haya archivo) ===== */
+        #audio-section{ display:none; margin-top:20px; }
+        .audio-wrapper{
+            background:#fff;
+            border-radius:32px;
+            padding:10px 14px;
+            box-shadow:0 6px 18px rgba(0,0,0,0.15);
+        }
+        audio#preview-audio{ width:100%; outline:none; }
+
+        /* ===== Panel derecho: resultados ===== */
+        .results{
+            display:grid;
             grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin: 30px 50px;
+            gap:22px;
         }
-        .results img {
-            width: 100%;
-            aspect-ratio: 4/3;
-            object-fit: cover;
-            border-radius: 15px;
-            background-color: #fff;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        .card{
+            background:#fff;
+            border:6px solid #000;
+            border-radius:16px;
+            min-height:220px;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            padding:18px;
+            text-align:center;
+            font-weight:800;
+            font-size:22px;
         }
-        .description-box {
-            grid-column: span 2;
-            padding: 20px;
-            border-radius: 15px;
-            background-color: rgba(255,255,255,0.3);
+
+        /* Descripción: transparente igual que el panel izquierdo */
+        .description-box{
+            grid-column: 1 / -1;
+            background: rgba(255,255,255,0.22);  /* transparencia igual que .container */
+            border:6px solid #000;
+            border-radius:18px;
+            min-height:380px;
+            padding:26px;
+            text-align:left;
+            color:#083b2b;
+            font-weight:700;
+            font-size:20px;
         }
-        .description-box h3 {
-            margin-top: 0;
-            font-size: 20px;
-            color: #2F4F4F;
+
+        /* Imagen dentro de tarjeta (si hay imagen real) */
+        .card img{
+            width:100%;
+            height:100%;
+            object-fit:cover;
+            border-radius:8px;
         }
-        .description-box p {
-            font-size: 14px;
-            color: #004d40;  /* texto resaltante */
-            font-weight: 500;
+
+        /* Pequeños ajustes responsivos */
+        @media (max-width:900px){
+            .layout{ grid-template-columns: 1fr; padding:18px; }
+            .description-box{ min-height:280px; }
         }
     </style>
 </head>
 <body>
-    <!-- Audio de fondo -->
-    <audio id="bg-audio" src="{{ url_for('static', filename=background_audio) }}" autoplay></audio>
+    <!-- audio ambiente (opcional) -->
+    <audio id="bg-audio" src="{{ url_for('static', filename=background_audio) }}" autoplay loop muted></audio>
 
-    <div class="container">
-        <h2>Reconocimiento de Cantos de Aves</h2>
+    <div class="layout">
+        <!-- ===== Panel izquierdo: carga de audio ===== -->
+        <div class="container">
+            <h2>Reconocimiento de Cantos de Aves</h2>
 
-        <form method="POST" enctype="multipart/form-data">
-            <input type="file" name="audio_file" accept=".wav,.mp3">
-            <button type="submit">Cargar Audio</button>
-        </form>
-
-        {% if audio_filename %}
-            <h3>Audio Cargado:</h3>
-            <audio controls>
-                <source src="{{ url_for('static', filename=audio_filename) }}" type="audio/wav">
-                Tu navegador no soporta el elemento de audio.
-            </audio>
-
-            <!-- Botón Identificar Ave -->
-            <form method="POST" action="/identify">
-                <button type="submit" class="identify-btn">Identificar ave</button>
+            <!-- FORMULARIO de subida. Si quieres subir automáticamente desde JS, dale id="upload-form" -->
+            <form id="upload-form" method="POST" enctype="multipart/form-data">
+                <input type="file" name="audio_file" accept=".wav,.mp3" />
+                <button class="btn" type="submit">Cargar Audio</button>
             </form>
-        {% endif %}
-    </div>
 
-    <!-- Sección de resultados (aparecerá tras identificación) -->
-    {% if identified_species %}
-    <div class="results">
-        <img src="{{ url_for('static', filename=identified_species_image) }}" alt="Especie identificada">
-        <img src="{{ url_for('static', filename=distribution_map_image) }}" alt="Mapa distribución">
-        
-        <div class="description-box">
-            <h3>Descripción de la Especie</h3>
-            <p>{{ species_description }}</p>
+            <!-- Este bloque aparece cuando ya hay archivo (servidor) o cuando el usuario elige un archivo en el cliente -->
+            <div id="audio-section" {% if audio_filename %} style="display:block;" {% endif %}>
+                <h3 style="margin:12px 0 8px; color:#274;">Audio Cargado:</h3>
+
+                <div class="audio-wrapper">
+                    <!-- Si el servidor ya tiene audio, lo usamos; si no, el JS colocará el blob URL en este audio -->
+                    <audio id="preview-audio" controls>
+                        {% if audio_filename %}
+                        <source src="{{ url_for('static', filename=audio_filename) }}" >
+                        {% endif %}
+                        Tu navegador no soporta el elemento audio.
+                    </audio>
+                </div>
+
+                <!-- Botón identificar: envía a /identify (tu ruta) -->
+                <form id="identify-form" method="POST" action="/identify" style="margin-top:16px;">
+                    <button class="btn" type="submit">Identificar ave</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- ===== Panel derecho: resultados (oculto si no identificado) ===== -->
+        <div id="results-panel"
+             class="results"
+             {% if identified_species %} style="display:grid;" {% else %} style="display:none;" {% endif %}>
+            <!-- tarjeta: foto de especie -->
+            <div class="card">
+                {% if identified_species_image %}
+                    <img src="{{ url_for('static', filename=identified_species_image) }}" alt="Especie">
+                {% else %}
+                    FOTO DE ESPECIE<br>IDENTIFICADA
+                {% endif %}
+            </div>
+
+            <!-- tarjeta: mapa de distribución -->
+            <div class="card">
+                {% if distribution_map_image %}
+                    <img src="{{ url_for('static', filename=distribution_map_image) }}" alt="Mapa distribución">
+                {% else %}
+                    FOTO DE MAPA DE<br>DISTRIBUCIÓN EN COLOMBIA
+                {% endif %}
+            </div>
+
+            <!-- caja descripción: transparente -->
+            <div class="description-box">
+                {% if identified_species %}
+                    <h3 style="margin-top:0; font-size:26px;">{{ identified_species }}</h3>
+                    <p style="font-weight:600; font-size:18px; margin-top:12px;">{{ species_description }}</p>
+                {% else %}
+                    TEXTO DE DESCRIPCIÓN DE LA ESPECIE
+                {% endif %}
+            </div>
         </div>
     </div>
-    {% endif %}
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function(){
+            const fileInput = document.querySelector('input[name="audio_file"]');
+            const audioSection = document.getElementById('audio-section');
+            const audioPlayer = document.getElementById('preview-audio');
+            const resultsPanel = document.getElementById('results-panel');
+            const uploadForm = document.getElementById('upload-form');
+            const identifyForm = document.getElementById('identify-form');
+
+            // Si el usuario selecciona un archivo en el cliente, mostramos la barra de audio usando ObjectURL
+            if(fileInput){
+                fileInput.addEventListener('change', function(){
+                    if(this.files && this.files[0]){
+                        const file = this.files[0];
+                        const url = URL.createObjectURL(file);
+                        // si el audio ya tiene <source>, lo reemplazamos convenientemente
+                        if(audioPlayer){
+                            audioPlayer.src = url;
+                            audioPlayer.load();
+                        }
+                        audioSection.style.display = 'block';
+                        // opcional: no autoenviar; dejamos que el usuario presione "Cargar Audio"
+                    }
+                });
+            }
+
+            // Cuando se envía "Identificar ave" mostramos el panel derecho (skeleton) de inmediato
+            // para que el usuario vea el cambio mientras el servidor procesa.
+            if(identifyForm){
+                identifyForm.addEventListener('submit', function(){
+                    resultsPanel.style.display = 'grid';
+                });
+            }
+
+            // Si el servidor ya devolvió identified_species, el panel ya está visible por Jinja.
+        });
+    </script>
 </body>
 </html>
-
