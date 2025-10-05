@@ -85,7 +85,7 @@ def identify():
         print("📥 Archivo recibido y guardado:", raw_path)
     
     # Simulación del integrador (valor de ejemplo)
-    especie_identificada = "Ara ambiguus"
+    especie_identificada = "Buteogallus solitarius"
 
     # Normalizar para búsqueda de archivos (reemplazar espacios)
     especie_filename = especie_identificada.replace(" ", "_")

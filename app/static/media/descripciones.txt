@@ -1,59 +1,59 @@
 [Tinamus osgoodi]
-Torito de los Andes. Habita en bosques nublados de alta montaña, entre los 1.500 y 3.000 metros de altitud. Es un ave tímida y solitaria, difícil de observar. Su conservación depende de la protección de los bosques andinos.
+Torito de los Andes. Habita en bosques nublados de alta montaña, entre los 1.500 y 3.000 metros de altitud. Es un ave tímida y solitaria, difícil de observar, que suele desplazarse lentamente entre la hojarasca buscando frutos y pequeños invertebrados. Su conservación depende de la protección de los bosques andinos, ya que la tala y fragmentación del hábitat son sus principales amenazas. Se reproduce en madrigueras poco profundas, donde la hembra incuba los huevos en soledad, haciendo de esta especie un indicador sensible de la salud del ecosistema andino.
 
 [Oxyura jamaicensis]
-Pato rufo. Se reconoce por su pico azul brillante y su cola rígida que suele mantener erguida. Es un gran buceador que se alimenta de plantas acuáticas e invertebrados. Su presencia indica buena salud de los humedales.
+Pato rufo. Se reconoce por su pico azul brillante y su cola rígida que suele mantener erguida, lo que le da un perfil muy característico en el agua. Es un gran buceador que se alimenta de plantas acuáticas, pequeños crustáceos e invertebrados, permaneciendo largos periodos sumergido para buscar alimento. Su presencia indica buena salud de los humedales y es un componente importante para el equilibrio de las comunidades acuáticas. Durante la temporada de reproducción, los machos exhiben un plumaje más intenso para atraer a las hembras, y construyen nidos bien escondidos entre la vegetación densa.
 
 [Penelope perspicax]
-Pava caucana. Ave endémica de Colombia y considerada en peligro crítico. Vive en bosques húmedos de la cordillera Central. Cumple un rol ecológico clave al dispersar semillas de los árboles que consume.
+Pava caucana. Ave endémica de Colombia y considerada en peligro crítico. Vive en bosques húmedos de la cordillera Central, desplazándose en grupos pequeños mientras se alimenta de frutos, semillas y brotes jóvenes. Cumple un rol ecológico clave al dispersar semillas de los árboles que consume, favoreciendo la regeneración del bosque. La pérdida de hábitat por deforestación y caza ilegal constituye la mayor amenaza para esta especie, que además tiene una baja tasa de reproducción y requiere áreas extensas de bosque bien conservado para sobrevivir.
 
 [Odontophorus strophium]
-Perdiz colorada. Se encuentra en los bosques húmedos del altiplano cundiboyacense. Es esquiva y prefiere moverse entre la vegetación densa. La pérdida de hábitat representa su principal amenaza de conservación.
+Perdiz colorada. Se encuentra en los bosques húmedos del altiplano cundiboyacense, desplazándose con cautela entre la vegetación densa y restos de hojarasca. Es esquiva y difícil de observar, lo que ha limitado los estudios sobre su comportamiento. Su dieta consiste en semillas, insectos y pequeños frutos, contribuyendo al control de insectos y a la dispersión de plantas. La pérdida de hábitat y la fragmentación de los bosques representan su principal amenaza de conservación, y su presencia indica ecosistemas de montaña relativamente intactos.
 
 [Podiceps occipitalis]
-Zambullidor plateado. Habita en lagunas altoandinas y humedales fríos. Destaca por sus habilidades de buceo para alimentarse de peces e insectos acuáticos. Es sensible a la contaminación y a la alteración de cuerpos de agua.
+Zambullidor plateado. Habita en lagunas altoandinas y humedales fríos de la región andina. Destaca por sus habilidades de buceo, sumergiéndose para alimentarse de peces, insectos acuáticos y pequeños crustáceos. Es muy sensible a la contaminación del agua, a la variación del nivel de las lagunas y a la alteración de cuerpos de agua, lo que lo convierte en un excelente bioindicador de la calidad del ecosistema. Durante la temporada reproductiva, construye nidos flotantes camuflados entre la vegetación, donde cuida sus huevos y crías con gran dedicación.
 
 [Phoenicopterus ruber]
-Flamenco americano. Reconocido por su plumaje rosado intenso y largas patas. Se encuentra en lagunas salinas y zonas costeras del Caribe y norte de Sudamérica. Se alimenta filtrando algas y crustáceos con su pico curvado.
+Flamenco americano. Reconocido por su plumaje rosado intenso y largas patas que le permiten alimentarse en aguas poco profundas. Se encuentra en lagunas salinas, estuarios y zonas costeras del Caribe y norte de Sudamérica, donde filtra algas, crustáceos y plancton con su pico curvado adaptado a este fin. Su coloración deriva de los pigmentos de los alimentos que consume, siendo un indicador indirecto de la productividad de los ecosistemas acuáticos. Vive en grandes colonias que facilitan la defensa frente a depredadores y la sincronización de la reproducción.
 
 [Sula leucogaster]
-Piquero moreno. Ave marina que se distingue por su plumaje marrón y pecho blanco. Forma colonias en costas e islas tropicales. Se alimenta lanzándose en picada al mar para atrapar peces.
+Piquero moreno. Ave marina que se distingue por su plumaje marrón en la espalda y blanco en el pecho. Forma colonias densas en costas rocosas e islas tropicales, donde anida en acantilados y zonas protegidas del oleaje. Se alimenta lanzándose en picada al mar para atrapar peces y pequeños cefalópodos, mostrando gran precisión y coordinación durante la caza. Su comportamiento colonial también le permite protegerse de depredadores y mantener interacciones sociales complejas, incluyendo exhibiciones de cortejo y cuidado compartido de los polluelos.
 
 [Egretta rufescens]
-Garceta rojiza. Presenta dos fases de color: una blanca y otra rojiza. Es una de las garzas más raras de América. Su técnica de caza incluye correr y extender sus alas para asustar peces en aguas someras.
+Garceta rojiza. Presenta dos fases de color: una blanca y otra rojiza, lo que la hace única entre las garzas de América. Es una de las garzas más raras del continente, y su técnica de caza incluye correr sobre aguas someras, extender las alas para crear sombra y asustar peces, aumentando sus posibilidades de captura. Se encuentra principalmente en manglares, estuarios y marismas costeras, donde su presencia refleja la calidad ambiental del ecosistema. La conservación de estas aves depende de la protección de los hábitats acuáticos frente a la contaminación y el desarrollo humano.
 
 [Vultur gryphus]
-Cóndor de los Andes. El ave voladora más grande del mundo, con una envergadura superior a 3 metros. Emblema nacional de varios países andinos. Se alimenta de carroña y cumple un papel ecológico esencial como reciclador natural.
+Cóndor de los Andes. El ave voladora más grande del mundo, con una envergadura superior a 3 metros y peso que puede superar los 15 kg. Emblema nacional de varios países andinos, incluyendo Colombia, Ecuador, Perú y Bolivia. Se alimenta principalmente de carroña, desempeñando un papel ecológico esencial como reciclador natural, evitando la propagación de enfermedades. Habita zonas montañosas abiertas, prefiriendo acantilados y áreas de gran altitud para anidar y criar a sus polluelos, que requieren largos periodos de cuidado parental antes de volar.
 
 [Buteogallus solitarius]
-Águila solitaria. Rapaz de gran tamaño que habita bosques montanos y selvas húmedas. Se caracteriza por su plumaje oscuro y fuerte pico. Es un depredador tope, vital para el equilibrio de las cadenas tróficas.
+Águila solitaria. Rapaz de gran tamaño que habita bosques montanos y selvas húmedas tropicales y subtropicales. Se caracteriza por su plumaje oscuro, fuerte pico curvado y garras poderosas. Es un depredador tope que regula poblaciones de aves, mamíferos y reptiles pequeños, siendo vital para el equilibrio de las cadenas tróficas. Prefiere áreas de bosque con buena cobertura y se muestra muy territorial. Su conservación depende de la protección de bosques maduros frente a la deforestación y la caza.
 
 [Rallus semiplumbeus]
-Rascón andino. Especie endémica de los humedales de la Sabana de Bogotá. De hábitos reservados, se esconde entre la vegetación acuática. Está en peligro debido al drenaje de humedales y la urbanización.
+Rascón andino. Especie endémica de los humedales de la Sabana de Bogotá, donde se mueve entre juncales y pastizales inundados. De hábitos reservados y nocturnos, se esconde entre la vegetación acuática para evitar depredadores. Su alimentación incluye insectos, pequeños crustáceos y semillas. Está en peligro debido al drenaje de humedales, contaminación y urbanización creciente, siendo un indicador de la salud ambiental de estos ecosistemas altoandinos.
 
 [Leptotila conoveri]
-Paloma de Conover. Especie poco conocida y endémica de Colombia. Habita bosques secos tropicales y se alimenta principalmente de frutos. La pérdida de hábitat por la agricultura amenaza su supervivencia.
+Paloma de Conover. Especie poco conocida y endémica de Colombia, que habita bosques secos tropicales y bordes de selva donde se alimenta principalmente de frutos, semillas y brotes tiernos. Su comportamiento discreto dificulta su observación, y la fragmentación del hábitat por la agricultura representa la mayor amenaza para su supervivencia. La conservación de esta especie requiere áreas protegidas y la restauración de corredores de bosque conectados.
 
 [Notharchus subtectus]
-Buco del Chocó. Ave típica de los bosques húmedos del Chocó biogeográfico. Presenta un plumaje blanco y negro con aspecto robusto. Se alimenta de insectos grandes y pequeños vertebrados.
+Buco del Chocó. Ave típica de los bosques húmedos del Chocó biogeográfico, reconocida por su plumaje blanco y negro y su aspecto robusto. Se alimenta de insectos grandes como escarabajos, mariposas y orugas, así como de pequeños vertebrados, desempeñando un papel importante en el control de plagas. Prefiere los estratos altos del bosque para cazar y anidar, construyendo nidos en cavidades naturales o en troncos huecos. Su conservación depende de la protección de los bosques húmedos frente a la tala y expansión agrícola.
 
 [Eriocnemis isabellae]
-Zamarrino del Pinche. Colibrí endémico y en peligro crítico, exclusivo de la Sierra Nevada de Santa Marta. Sus patas tienen mechones de plumas blancas características. Depende de la conservación de los bosques de niebla.
+Zamarrino del Pinche. Colibrí endémico y en peligro crítico, exclusivo de la Sierra Nevada de Santa Marta. Sus patas presentan mechones de plumas blancas distintivas, y su plumaje brillante lo hace fácilmente identificable entre la vegetación de niebla. Se alimenta de néctar de flores de alta montaña, contribuyendo a la polinización de especies endémicas. La conservación de esta especie depende directamente de la protección de los bosques de niebla, ya que su área de distribución es extremadamente reducida.
 
 [Capito hypoleucus]
-Cabezón cabeciblanco. Ave carpintera con cabeza blanca y cuerpo negruzco. Endémica del norte de Colombia. Se alimenta de frutos e insectos, y su distribución está muy restringida a zonas de bosque seco tropical.
+Cabezón cabeciblanco. Ave carpintera con cabeza blanca y cuerpo negruzco, endémica del norte de Colombia. Se alimenta de frutos, insectos y larvas que encuentra perforando troncos, desempeñando un papel clave en la dispersión de semillas y control de insectos. Su distribución está muy restringida a zonas de bosque seco tropical, y la pérdida de hábitat representa una amenaza directa para su supervivencia. Se observa principalmente en parejas o pequeños grupos familiares.
 
 [Campephilus gayaquilensis]
-Carpintero de Guayaquil. Es un gran pájaro carpintero con cresta roja llamativa. Su potente pico le permite perforar troncos en busca de insectos. Es un indicador de bosques conservados en regiones costeras.
+Carpintero de Guayaquil. Es un gran pájaro carpintero con cresta roja llamativa que habita bosques húmedos costeros. Su potente pico le permite perforar troncos en busca de insectos, contribuyendo al control de plagas y al reciclaje de madera muerta. Es un indicador de bosques conservados y suele requerir grandes árboles para anidar. Durante el cortejo, realiza tamborileos sonoros que pueden escucharse a gran distancia, demostrando su territorialidad y salud del ecosistema.
 
 [Ara ambiguus]
-Guacamaya verde mayor. Una de las guacamayas más grandes de América. Su plumaje verde brillante y pico fuerte la distinguen. Se encuentra en peligro por la deforestación y el tráfico ilegal de fauna silvestre.
+Guacamaya verde mayor. Una de las guacamayas más grandes de América, con plumaje verde brillante y pico fuerte adaptado para romper frutos duros. Se encuentra en peligro por la deforestación y el tráfico ilegal de fauna silvestre. Vive en grupos sociales complejos y forma parejas monógamas que cuidan a sus crías durante largos periodos. Su presencia es un indicador de bosques tropicales bien conservados y saludables, y contribuye a la dispersión de semillas de gran tamaño.
 
 [Cistothorus apolinari]
-Cucarachero de Apolinar. Endémico de humedales altoandinos de Colombia. Su canto fuerte lo delata pese a su pequeño tamaño. Está en grave peligro por la pérdida de su hábitat natural.
+Cucarachero de Apolinar. Endémico de humedales altoandinos de Colombia, su pequeño tamaño y canto fuerte lo hacen difícil de detectar visualmente pero fácil de localizar acústicamente. Se alimenta de insectos y arañas que encuentra entre la vegetación acuática. Está en grave peligro debido a la pérdida de su hábitat natural por drenaje de humedales y expansión urbana, lo que reduce la disponibilidad de sitios de anidación y alimentación.
 
 [Chlorospingus flavovirens]
-Montero verdiamarillo. Especie de hábitos gregarios, suele encontrarse en bandadas mixtas en bosques nublados. Destaca por su plumaje verde oliváceo con tonos amarillos. Su conservación depende de la protección de los bosques andinos.
+Montero verdiamarillo. Especie de hábitos gregarios, suele encontrarse en bandadas mixtas en bosques nublados andinos. Destaca por su plumaje verde oliváceo con tonos amarillos brillantes y su comportamiento activo al buscar frutos e insectos entre el follaje. Su conservación depende de la protección de los bosques andinos, ya que la fragmentación y degradación del hábitat afectan la disponibilidad de alimento y refugio, y disminuyen la conectividad entre poblaciones.
 
 [Hypopyrrhus pyrohypogaster]
-Cacique candela. Llamativo por su plumaje negro con vientre rojo intenso. Endémico de Colombia y asociado a los bosques húmedos del valle del Cauca. Vive en grupos y construye nidos colgantes en colonias.
+Cacique candela. Llamativo por su plumaje negro con vientre rojo intenso, es endémico de Colombia y se asocia a los bosques húmedos del valle del Cauca. Vive en grupos sociales que construyen nidos colgantes en colonias, mostrando un comportamiento cooperativo interesante. Se alimenta de frutos, semillas e insectos, contribuyendo a la dispersión de semillas y al control de insectos. La conservación de esta especie requiere la protección de fragmentos de bosque primario y la conectividad entre hábitats.
