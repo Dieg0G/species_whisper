@@ -10,12 +10,12 @@ app.secret_key = "clave_secreta_segura"  # cambia esto en producción
 # Variables globales
 BACKGROUND_IMAGE = "fondoimagen.JPG"
 ICON_IMAGE = "icono.png"
-BACKGROUND_AUDIO = "troglodites.mp3"
 
 # ================================
 # Rutas base
 # ================================
-MEDIA_DIR = os.path.join(app.static_folder, "media")
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+MEDIA_DIR = os.path.join(BASE_DIR, "static", "media")
 AVES_DIR = os.path.join(MEDIA_DIR, "aves")
 MAPAS_DIR = os.path.join(MEDIA_DIR, "mapa")
 DESCRIPCIONES_FILE = os.path.join(MEDIA_DIR, "descripciones.txt")
@@ -36,42 +36,54 @@ def find_file_with_extensions(dirpath, base_name, exts):
 @app.route("/", methods=["GET", "POST"])
 def index():
     audio_filename = None
+    audios_dir = os.path.join(MEDIA_DIR, "audios")
+    os.makedirs(audios_dir, exist_ok=True)
 
     if request.method == "POST":
         file = request.files.get("audio_file")
-        if file:
-            # Nombre seguro para evitar caracteres raros
+        if file and file.filename != "":
+            print("📥 Archivo recibido:", file.filename)
+            print("📁 Existe carpeta audios:", os.path.exists(audios_dir))
+            print("📁 Permisos escritura:", os.access(audios_dir, os.W_OK))
+            
             safe_name = secure_filename(file.filename)
-
-            # Guardar en media/audios (organizado)
-            audios_dir = os.path.join(MEDIA_DIR, "audios")
-            os.makedirs(audios_dir, exist_ok=True)
             raw_path = os.path.join(audios_dir, safe_name)
+            print("✅ Guardando en:", raw_path)
             file.save(raw_path)
 
-            # Copiar a la raíz de static para que sea accesible por URL directa
-            static_audio_path = os.path.join(app.static_folder, safe_name)
-            try:
-                shutil.copy(raw_path, static_audio_path)
-            except Exception:
-                # Si por alguna razón no se copia, no rompemos la app.
-                pass
-
-            audio_filename = safe_name
-            # Guardar el último audio cargado en la sesión para recuperarlo en /identify
+            # Guardar ruta relativa solo para mostrar en este POST
+            audio_filename = os.path.join("media", "audios", safe_name)
             session["last_audio"] = audio_filename
+        else:
+            # Si no hay archivo, no mostrar nada
+            audio_filename = None
+
+    # En GET nunca mostramos audio automáticamente
+    # audio_filename = None ya está por defecto
 
     return render_template(
         "index.html",
         background_image=BACKGROUND_IMAGE,
         icon_image=ICON_IMAGE,
-        background_audio=BACKGROUND_AUDIO,
         audio_filename=audio_filename
     )
 
 
 @app.route("/identify", methods=["POST"])
 def identify():
+    # --- Nueva parte: guardar audio si se envía ---
+    file = request.files.get("audio_file")
+    audio_filename = None
+    if file:
+        audios_dir = os.path.join(MEDIA_DIR, "audios")
+        os.makedirs(audios_dir, exist_ok=True)
+        safe_name = secure_filename(file.filename)
+        raw_path = os.path.join(audios_dir, safe_name)
+        file.save(raw_path)
+        audio_filename = os.path.join("media", "audios", safe_name)
+        session["last_audio"] = audio_filename
+        print("📥 Archivo recibido y guardado:", raw_path)
+    
     # Simulación del integrador (valor de ejemplo)
     especie_identificada = "Ara ambiguus"
 
@@ -111,7 +123,6 @@ def identify():
         "index.html",
         background_image=BACKGROUND_IMAGE,
         icon_image=ICON_IMAGE,
-        background_audio=BACKGROUND_AUDIO,
         audio_filename=audio_filename,  # Pasamos este nombre al template
         identified_species=especie_identificada,
         identified_species_image=imagen_ave_rel,

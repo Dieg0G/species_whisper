@@ -132,8 +132,6 @@
     </style>
 </head>
 <body>
-    <!-- audio ambiente (opcional) -->
-    <audio id="bg-audio" src="{{ url_for('static', filename=background_audio) }}" autoplay loop muted></audio>
 
     <div class="layout">
         <!-- ===== Panel izquierdo: carga de audio ===== -->
@@ -141,7 +139,7 @@
             <h2>Reconocimiento de Cantos de Aves</h2>
 
             <!-- FORMULARIO de subida. Si quieres subir automáticamente desde JS, dale id="upload-form" -->
-            <form id="upload-form" method="POST" enctype="multipart/form-data">
+            <form id="upload-form" method="POST" action="/" enctype="multipart/form-data">
                 <input type="file" name="audio_file" accept=".wav,.mp3" />
                 <button class="btn" type="submit">Cargar Audio</button>
             </form>
