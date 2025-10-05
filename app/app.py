@@ -90,11 +90,19 @@ def identify():
     descripcion = "Descripción no disponible para esta especie."
     if os.path.exists(DESCRIPCIONES_FILE):
         with open(DESCRIPCIONES_FILE, "r", encoding="utf-8") as f:
-            lineas = f.readlines()
-            for i in range(len(lineas)):
-                if especie_identificada.lower() in lineas[i].lower():
-                    descripcion = "".join(lineas[i+1:i+4]).strip()
-                    break
+            contenido = f.read().splitlines()
+
+        especie_tag = f"[{especie_identificada}]"
+        for i, linea in enumerate(contenido):
+            if linea.strip().lower() == especie_tag.lower():
+                # Tomar las líneas hasta el próximo bloque entre []
+                descripcion_lineas = []
+                for j in range(i + 1, len(contenido)):
+                    if contenido[j].startswith("[") and contenido[j].endswith("]"):
+                        break
+                    descripcion_lineas.append(contenido[j])
+                descripcion = " ".join(linea.strip() for linea in descripcion_lineas if linea.strip())
+                break
 
     # Recuperar el último audio cargado desde la sesión (no lo guardamos de nuevo)
     audio_filename = session.get("last_audio", None)
