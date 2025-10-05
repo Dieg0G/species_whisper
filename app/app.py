@@ -1,56 +1,116 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, url_for, session
 import os
+import shutil
+from urllib.parse import quote
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
+app.secret_key = "clave_secreta_segura"  # cambia esto en producción
 
-# Variables de los archivos estáticos
+# Variables globales
 BACKGROUND_IMAGE = "fondoimagen.JPG"
 ICON_IMAGE = "icono.png"
+BACKGROUND_AUDIO = "troglodites.mp3"
+
+# ================================
+# Rutas base
+# ================================
+MEDIA_DIR = os.path.join(app.static_folder, "media")
+AVES_DIR = os.path.join(MEDIA_DIR, "aves")
+MAPAS_DIR = os.path.join(MEDIA_DIR, "mapa")
+DESCRIPCIONES_FILE = os.path.join(MEDIA_DIR, "descripciones.txt")
+
+# Extensiones válidas para búsqueda
+AVES_EXTS = [".jfif", ".jpg", ".jpeg", ".png", ".webp"]
+MAPA_EXTS = [".png", ".jpg", ".jpeg", ".jfif", ".webp"]
+
+def find_file_with_extensions(dirpath, base_name, exts):
+    """Busca un archivo llamado base_name con alguna de las extensiones dadas."""
+    for ext in exts:
+        candidate = os.path.join(dirpath, f"{base_name}{ext}")
+        if os.path.exists(candidate):
+            return candidate, ext
+    return None, None
+
 
 @app.route("/", methods=["GET", "POST"])
 def index():
     audio_filename = None
+
     if request.method == "POST":
         file = request.files.get("audio_file")
         if file:
-            # Guardar temporalmente en la carpeta static para reproducirlo
-            raw_path = os.path.join("data", "raw", file.filename)
-            os.makedirs(os.path.dirname(raw_path), exist_ok=True)
+            # Nombre seguro para evitar caracteres raros
+            safe_name = secure_filename(file.filename)
+
+            # Guardar en media/audios (organizado)
+            audios_dir = os.path.join(MEDIA_DIR, "audios")
+            os.makedirs(audios_dir, exist_ok=True)
+            raw_path = os.path.join(audios_dir, safe_name)
             file.save(raw_path)
 
-            # Copiar a static para que se reproduzca
-            static_path = os.path.join("app", "static", file.filename)
-            import shutil
-            shutil.copy(raw_path, static_path)
+            # Copiar a la raíz de static para que sea accesible por URL directa
+            static_audio_path = os.path.join(app.static_folder, safe_name)
+            try:
+                shutil.copy(raw_path, static_audio_path)
+            except Exception:
+                # Si por alguna razón no se copia, no rompemos la app.
+                pass
 
-            audio_filename = file.filename
+            audio_filename = safe_name
+            # Guardar el último audio cargado en la sesión para recuperarlo en /identify
+            session["last_audio"] = audio_filename
+
     return render_template(
         "index.html",
         background_image=BACKGROUND_IMAGE,
         icon_image=ICON_IMAGE,
+        background_audio=BACKGROUND_AUDIO,
         audio_filename=audio_filename
     )
 
-# Nueva ruta para Identificar Ave (dummy)
+
 @app.route("/identify", methods=["POST"])
 def identify():
-    # Datos simulados por ahora
-    identified_species = "Turdus fuscater (Mirla Grande)"
-    identified_species_image = "dummy_bird.jpg"  # pon una imagen en static/
-    distribution_map_image = "dummy_map.jpg"     # pon otra imagen en static/
-    species_description = (
-        "La mirla grande es un ave común en zonas urbanas y rurales de Colombia. "
-        "Se alimenta principalmente de frutos e insectos, y es reconocida por su canto melódico."
-    )
+    # Simulación del integrador (valor de ejemplo)
+    especie_identificada = "Ara ambiguus"
+
+    # Normalizar para búsqueda de archivos (reemplazar espacios)
+    especie_filename = especie_identificada.replace(" ", "_")
+
+    # Buscar imagen de ave con distintas extensiones
+    imagen_ave_path, imagen_ext = find_file_with_extensions(AVES_DIR, especie_filename, AVES_EXTS)
+    imagen_ave_rel = f"media/aves/{quote(especie_filename)}{imagen_ext}" if imagen_ave_path else None
+
+    # Buscar mapa de distribución con distintas extensiones
+    mapa_ave_path, mapa_ext = find_file_with_extensions(MAPAS_DIR, especie_filename, MAPA_EXTS)
+    mapa_ave_rel = f"media/mapa/{quote(especie_filename)}{mapa_ext}" if mapa_ave_path else None
+
+    # Buscar descripción en descripciones.txt
+    descripcion = "Descripción no disponible para esta especie."
+    if os.path.exists(DESCRIPCIONES_FILE):
+        with open(DESCRIPCIONES_FILE, "r", encoding="utf-8") as f:
+            lineas = f.readlines()
+            for i in range(len(lineas)):
+                if especie_identificada.lower() in lineas[i].lower():
+                    descripcion = "".join(lineas[i+1:i+4]).strip()
+                    break
+
+    # Recuperar el último audio cargado desde la sesión (no lo guardamos de nuevo)
+    audio_filename = session.get("last_audio", None)
 
     return render_template(
         "index.html",
         background_image=BACKGROUND_IMAGE,
         icon_image=ICON_IMAGE,
-        identified_species=identified_species,
-        identified_species_image=identified_species_image,
-        distribution_map_image=distribution_map_image,
-        species_description=species_description
+        background_audio=BACKGROUND_AUDIO,
+        audio_filename=audio_filename,  # Pasamos este nombre al template
+        identified_species=especie_identificada,
+        identified_species_image=imagen_ave_rel,
+        distribution_map_image=mapa_ave_rel,
+        species_description=descripcion
     )
+
+
 if __name__ == "__main__":
     app.run(debug=True)

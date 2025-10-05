@@ -113,6 +113,17 @@
             border-radius:8px;
         }
 
+        /* Botón pequeño de reproducción si autoplay fue bloqueado */
+        .play-fallback {
+            display:inline-block;
+            margin-top:10px;
+            padding:8px 12px;
+            border-radius:10px;
+            background:#A3C9A8;
+            cursor:pointer;
+            font-weight:700;
+        }
+
         /* Pequeños ajustes responsivos */
         @media (max-width:900px){
             .layout{ grid-template-columns: 1fr; padding:18px; }
@@ -190,6 +201,7 @@
         </div>
     </div>
 
+    <!-- SCRIPT PRINCIPAL -->
     <script>
         document.addEventListener('DOMContentLoaded', function(){
             const fileInput = document.querySelector('input[name="audio_file"]');
@@ -216,15 +228,55 @@
                 });
             }
 
-            // Cuando se envía "Identificar ave" mostramos el panel derecho (skeleton) de inmediato
-            // para que el usuario vea el cambio mientras el servidor procesa.
+            // Cuando se envía "Identificar ave" marcamos la intención de reproducir (flag en localStorage)
             if(identifyForm){
                 identifyForm.addEventListener('submit', function(){
-                    resultsPanel.style.display = 'grid';
+                    try {
+                        // Guardamos la intención; la página se recargará y el script de load comprobará este flag
+                        localStorage.setItem('play_last_audio', '1');
+                    } catch(e) {
+                        console.log('LocalStorage no disponible', e);
+                    }
+                    // Mostrar el panel skeleton inmediatamente (para UX)
+                    if(resultsPanel){
+                        resultsPanel.style.display = 'grid';
+                    }
+                    // la forma sigue enviando el formulario normalmente
                 });
             }
 
             // Si el servidor ya devolvió identified_species, el panel ya está visible por Jinja.
+
+            // ===== Intento de reproducir automáticamente si vinimos de "Identificar" =====
+            (function tryAutoPlayAfterIdentify(){
+                const shouldPlay = localStorage.getItem('play_last_audio') === '1';
+                // El audio que se reproduce es el audio subido por el usuario (audio_filename pasado por Jinja)
+                const uploadedAudio = document.getElementById('preview-audio');
+                // Nota: preview-audio puede contener un <source> o src establecido; lo usamos.
+                if(shouldPlay && uploadedAudio){
+                    // Intentar reproducir
+                    uploadedAudio.play().then(() => {
+                        // Éxito: quitar el flag
+                        localStorage.removeItem('play_last_audio');
+                    }).catch((err) => {
+                        // Autoplay bloqueado: mostrar un botón discreto para que el usuario pulse
+                        localStorage.removeItem('play_last_audio'); // limpiamos el flag para evitar reintentos infinitos
+                        // Crear botón y colocarlo en la descripción (o en el panel izquierdo)
+                        const fallbackBtn = document.createElement('button');
+                        fallbackBtn.className = 'play-fallback';
+                        fallbackBtn.innerText = 'Reproducir sonido del audio cargado';
+                        fallbackBtn.onclick = function() {
+                            uploadedAudio.play().catch(e => console.log('Error al reproducir manualmente:', e));
+                            // opcional: ocultar el botón tras reproducir
+                            fallbackBtn.style.display = 'none';
+                        };
+                        // intentar añadir al panel de resultados si existe, sino al contenedor izquierdo
+                        const target = document.querySelector('.description-box') || document.querySelector('.container');
+                        if(target) target.appendChild(fallbackBtn);
+                    });
+                }
+            })();
+
         });
     </script>
 </body>

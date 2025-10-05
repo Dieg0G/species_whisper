@@ -1,0 +1,59 @@
+[Tinamus osgoodi]
+Torito de los Andes. Habita en bosques nublados de alta montaña, entre los 1.500 y 3.000 metros de altitud. Es un ave tímida y solitaria, difícil de observar. Su conservación depende de la protección de los bosques andinos.
+
+[Oxyura jamaicensis]
+Pato rufo. Se reconoce por su pico azul brillante y su cola rígida que suele mantener erguida. Es un gran buceador que se alimenta de plantas acuáticas e invertebrados. Su presencia indica buena salud de los humedales.
+
+[Penelope perspicax]
+Pava caucana. Ave endémica de Colombia y considerada en peligro crítico. Vive en bosques húmedos de la cordillera Central. Cumple un rol ecológico clave al dispersar semillas de los árboles que consume.
+
+[Odontophorus strophium]
+Perdiz colorada. Se encuentra en los bosques húmedos del altiplano cundiboyacense. Es esquiva y prefiere moverse entre la vegetación densa. La pérdida de hábitat representa su principal amenaza de conservación.
+
+[Podiceps occipitalis]
+Zambullidor plateado. Habita en lagunas altoandinas y humedales fríos. Destaca por sus habilidades de buceo para alimentarse de peces e insectos acuáticos. Es sensible a la contaminación y a la alteración de cuerpos de agua.
+
+[Phoenicopterus ruber]
+Flamenco americano. Reconocido por su plumaje rosado intenso y largas patas. Se encuentra en lagunas salinas y zonas costeras del Caribe y norte de Sudamérica. Se alimenta filtrando algas y crustáceos con su pico curvado.
+
+[Sula leucogaster]
+Piquero moreno. Ave marina que se distingue por su plumaje marrón y pecho blanco. Forma colonias en costas e islas tropicales. Se alimenta lanzándose en picada al mar para atrapar peces.
+
+[Egretta rufescens]
+Garceta rojiza. Presenta dos fases de color: una blanca y otra rojiza. Es una de las garzas más raras de América. Su técnica de caza incluye correr y extender sus alas para asustar peces en aguas someras.
+
+[Vultur gryphus]
+Cóndor de los Andes. El ave voladora más grande del mundo, con una envergadura superior a 3 metros. Emblema nacional de varios países andinos. Se alimenta de carroña y cumple un papel ecológico esencial como reciclador natural.
+
+[Buteogallus solitarius]
+Águila solitaria. Rapaz de gran tamaño que habita bosques montanos y selvas húmedas. Se caracteriza por su plumaje oscuro y fuerte pico. Es un depredador tope, vital para el equilibrio de las cadenas tróficas.
+
+[Rallus semiplumbeus]
+Rascón andino. Especie endémica de los humedales de la Sabana de Bogotá. De hábitos reservados, se esconde entre la vegetación acuática. Está en peligro debido al drenaje de humedales y la urbanización.
+
+[Leptotila conoveri]
+Paloma de Conover. Especie poco conocida y endémica de Colombia. Habita bosques secos tropicales y se alimenta principalmente de frutos. La pérdida de hábitat por la agricultura amenaza su supervivencia.
+
+[Notharchus subtectus]
+Buco del Chocó. Ave típica de los bosques húmedos del Chocó biogeográfico. Presenta un plumaje blanco y negro con aspecto robusto. Se alimenta de insectos grandes y pequeños vertebrados.
+
+[Eriocnemis isabellae]
+Zamarrino del Pinche. Colibrí endémico y en peligro crítico, exclusivo de la Sierra Nevada de Santa Marta. Sus patas tienen mechones de plumas blancas características. Depende de la conservación de los bosques de niebla.
+
+[Capito hypoleucus]
+Cabezón cabeciblanco. Ave carpintera con cabeza blanca y cuerpo negruzco. Endémica del norte de Colombia. Se alimenta de frutos e insectos, y su distribución está muy restringida a zonas de bosque seco tropical.
+
+[Campephilus gayaquilensis]
+Carpintero de Guayaquil. Es un gran pájaro carpintero con cresta roja llamativa. Su potente pico le permite perforar troncos en busca de insectos. Es un indicador de bosques conservados en regiones costeras.
+
+[Ara ambiguus]
+Guacamaya verde mayor. Una de las guacamayas más grandes de América. Su plumaje verde brillante y pico fuerte la distinguen. Se encuentra en peligro por la deforestación y el tráfico ilegal de fauna silvestre.
+
+[Cistothorus apolinari]
+Cucarachero de Apolinar. Endémico de humedales altoandinos de Colombia. Su canto fuerte lo delata pese a su pequeño tamaño. Está en grave peligro por la pérdida de su hábitat natural.
+
+[Chlorospingus flavovirens]
+Montero verdiamarillo. Especie de hábitos gregarios, suele encontrarse en bandadas mixtas en bosques nublados. Destaca por su plumaje verde oliváceo con tonos amarillos. Su conservación depende de la protección de los bosques andinos.
+
+[Hypopyrrhus pyrohypogaster]
+Cacique candela. Llamativo por su plumaje negro con vientre rojo intenso. Endémico de Colombia y asociado a los bosques húmedos del valle del Cauca. Vive en grupos y construye nidos colgantes en colonias.
