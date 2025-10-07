@@ -57,9 +57,7 @@ uv pip install -r requirements.txt
 ```
 
 **4. Descarga el Modelo BirdNET**
-El script de análisis espera que el modelo `BirdNET-GLOBAL-6K-V2.4-Model-INT8.tflite` se encuentre en el directorio `src/models/`. Debes descargarlo y colocarlo en esa ubicación.
-
-*Nota: El modelo se puede encontrar en el repositorio oficial de BirdNET o en fuentes de modelos de TensorFlow.*
+Descarga el modelo BirdNET directamente desde este enlace <https://zenodo.org/records/15050749/files/BirdNET_v2.4_tflite.zip?download=1 >. El archivo .tflite debe ser colocado en el directorio `src/models/`. Si tienes problemas con el enlace, intenta buscar "BirdNET Model V2.4 ZENODO" para encontrar la fuente oficial.
 
 ## Usando la Aplicación Web
 
