@@ -3,7 +3,7 @@ import os
 import shutil
 from urllib.parse import quote
 from werkzeug.utils import secure_filename
-from integrator import get_species_prediction
+#from integrator import get_species_prediction
 
 app = Flask(__name__)
 app.secret_key = "clave_secreta_segura"  # cambia esto en producción
@@ -86,8 +86,8 @@ def identify():
         print("📥 Archivo recibido y guardado:", raw_path)
     
     # Simulación del integrador (valor de ejemplo)
-    #especie_identificada = "Buteogallus solitarius"
-    especie_identificada = get_species_prediction(audio_path) or "Especie no identificada"
+    especie_identificada = "Buteogallus solitarius"
+    #especie_identificada = get_species_prediction(audio_path) or "Especie no identificada"
     
 
     # Normalizar para búsqueda de archivos (reemplazar espacios)
