@@ -1,11 +1,22 @@
-fastapi == 0.118.0
-uvicorn == 0.37.0
-python-multipart == 0.0.20
-pillow == 10.2.0
-pygame == 2.6.1
-scipy
-tqdm
-numpy == 2.3.3
-tensorflow == 2.20.0
-librosa == 0.11.0
+# --- Web frameworks ---
+flask==3.0.3
+werkzeug==3.0.1
+fastapi==0.118.0
+uvicorn==0.37.0
+python-multipart==0.0.20
+
+# --- Procesamiento multimedia ---
+pillow==10.2.0
+pygame==2.6.1
 ffmpeg-python==0.2.0
+
+# --- Ciencia de datos y audio ---
+numpy==1.26.4
+scipy==1.13.1
+tqdm==4.66.4
+librosa==0.10.1
+soundfile==0.12.1
+numba==0.59.1
+
+# --- Inteligencia Artificial ---
+tensorflow==2.16.1
