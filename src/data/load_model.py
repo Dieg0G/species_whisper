@@ -8,14 +8,16 @@ import tensorflow as tf
 import logging
 import os
 from scipy.special import softmax
+from pathlib import Path
 
 # Configurar logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Configuración por defecto
-DEFAULT_MODEL_PATH = os.path.join("src", "models", "audio-model.tflite")
-DEFAULT_LABELS_PATH = os.path.join("src", "models", "labels", "af.txt")
+PROJECT_ROOT = Path(__file__).resolve().parents[2]  # sube hasta la raíz del proyecto
+DEFAULT_MODEL_PATH = PROJECT_ROOT / "src" / "models" / "audio-model.tflite"
+DEFAULT_LABELS_PATH = PROJECT_ROOT / "src" / "models" / "labels" / "af.txt"
+
 
 
 class BirdNETClassifier:

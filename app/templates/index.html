@@ -94,7 +94,7 @@
         /* Descripción: transparente igual que el panel izquierdo */
         .description-box{
             grid-column: 1 / -1;
-            background: rgba(255,255,255,0.22);  /* transparencia igual que .container */
+            background: rgba(255,255,255,0.22);
             border:6px solid #000;
             border-radius:18px;
             min-height:380px;
@@ -105,7 +105,6 @@
             font-size:20px;
         }
 
-        /* Imagen dentro de tarjeta (si hay imagen real) */
         .card img{
             width:100%;
             height:100%;
@@ -113,7 +112,6 @@
             border-radius:8px;
         }
 
-        /* Botón pequeño de reproducción si autoplay fue bloqueado */
         .play-fallback {
             display:inline-block;
             margin-top:10px;
@@ -124,7 +122,6 @@
             font-weight:700;
         }
 
-        /* Pequeños ajustes responsivos */
         @media (max-width:900px){
             .layout{ grid-template-columns: 1fr; padding:18px; }
             .description-box{ min-height:280px; }
@@ -134,42 +131,34 @@
 <body>
 
     <div class="layout">
-        <!-- ===== Panel izquierdo: carga de audio ===== -->
+        <!-- ===== Panel izquierdo: carga e identificación de audio ===== -->
         <div class="container">
             <h2>Reconocimiento de Cantos de Aves</h2>
 
-            <!-- FORMULARIO de subida. Si quieres subir automáticamente desde JS, dale id="upload-form" -->
-            <form id="upload-form" method="POST" action="/" enctype="multipart/form-data">
+            <!-- FORMULARIO unificado -->
+            <form id="upload-form" method="POST" action="/identify" enctype="multipart/form-data">
                 <input type="file" name="audio_file" accept=".wav,.mp3" />
-                <button class="btn" type="submit">Cargar Audio</button>
-            </form>
+                <button class="btn" type="submit">Identificar ave</button>
 
-            <!-- Este bloque aparece cuando ya hay archivo (servidor) o cuando el usuario elige un archivo en el cliente -->
-            <div id="audio-section" {% if audio_filename %} style="display:block;" {% endif %}>
-                <h3 style="margin:12px 0 8px; color:#274;">Audio Cargado:</h3>
-
-                <div class="audio-wrapper">
-                    <!-- Si el servidor ya tiene audio, lo usamos; si no, el JS colocará el blob URL en este audio -->
-                    <audio id="preview-audio" controls>
-                        {% if audio_filename %}
-                        <source src="{{ url_for('static', filename=audio_filename) }}" >
-                        {% endif %}
-                        Tu navegador no soporta el elemento audio.
-                    </audio>
+                <!-- Bloque de audio (visible al seleccionar un archivo) -->
+                <div id="audio-section" {% if audio_filename %} style="display:block;" {% endif %}>
+                    <h3 style="margin:12px 0 8px; color:#274;">Audio Cargado:</h3>
+                    <div class="audio-wrapper">
+                        <audio id="preview-audio" controls>
+                            {% if audio_filename %}
+                            <source src="{{ url_for('static', filename=audio_filename) }}" >
+                            {% endif %}
+                            Tu navegador no soporta el elemento audio.
+                        </audio>
+                    </div>
                 </div>
-
-                <!-- Botón identificar: envía a /identify (tu ruta) -->
-                <form id="identify-form" method="POST" action="/identify" style="margin-top:16px;">
-                    <button class="btn" type="submit">Identificar ave</button>
-                </form>
-            </div>
+            </form>
         </div>
 
-        <!-- ===== Panel derecho: resultados (oculto si no identificado) ===== -->
+        <!-- ===== Panel derecho: resultados ===== -->
         <div id="results-panel"
              class="results"
              {% if identified_species %} style="display:grid;" {% else %} style="display:none;" {% endif %}>
-            <!-- tarjeta: foto de especie -->
             <div class="card">
                 {% if identified_species_image %}
                     <img src="{{ url_for('static', filename=identified_species_image) }}" alt="Especie">
@@ -178,7 +167,6 @@
                 {% endif %}
             </div>
 
-            <!-- tarjeta: mapa de distribución -->
             <div class="card">
                 {% if distribution_map_image %}
                     <img src="{{ url_for('static', filename=distribution_map_image) }}" alt="Mapa distribución">
@@ -187,7 +175,6 @@
                 {% endif %}
             </div>
 
-            <!-- caja descripción: transparente -->
             <div class="description-box">
                 {% if identified_species %}
                     <h3 style="margin-top:0; font-size:26px;">{{ identified_species }}</h3>
@@ -199,7 +186,6 @@
         </div>
     </div>
 
-    <!-- SCRIPT PRINCIPAL -->
     <script>
         document.addEventListener('DOMContentLoaded', function(){
             const fileInput = document.querySelector('input[name="audio_file"]');
@@ -207,74 +193,50 @@
             const audioPlayer = document.getElementById('preview-audio');
             const resultsPanel = document.getElementById('results-panel');
             const uploadForm = document.getElementById('upload-form');
-            const identifyForm = document.getElementById('identify-form');
 
-            // Si el usuario selecciona un archivo en el cliente, mostramos la barra de audio usando ObjectURL
             if(fileInput){
                 fileInput.addEventListener('change', function(){
                     if(this.files && this.files[0]){
                         const file = this.files[0];
                         const url = URL.createObjectURL(file);
-                        // si el audio ya tiene <source>, lo reemplazamos convenientemente
                         if(audioPlayer){
                             audioPlayer.src = url;
                             audioPlayer.load();
                         }
                         audioSection.style.display = 'block';
-                        // opcional: no autoenviar; dejamos que el usuario presione "Cargar Audio"
                     }
                 });
             }
 
-            // Cuando se envía "Identificar ave" marcamos la intención de reproducir (flag en localStorage)
-            if(identifyForm){
-                identifyForm.addEventListener('submit', function(){
-                    try {
-                        // Guardamos la intención; la página se recargará y el script de load comprobará este flag
-                        localStorage.setItem('play_last_audio', '1');
-                    } catch(e) {
-                        console.log('LocalStorage no disponible', e);
-                    }
-                    // Mostrar el panel skeleton inmediatamente (para UX)
-                    if(resultsPanel){
-                        resultsPanel.style.display = 'grid';
-                    }
-                    // la forma sigue enviando el formulario normalmente
+            // Guardar intención de reproducir tras identificación
+            if(uploadForm){
+                uploadForm.addEventListener('submit', function(){
+                    try { localStorage.setItem('play_last_audio', '1'); } catch(e){}
+                    if(resultsPanel) resultsPanel.style.display = 'grid';
                 });
             }
 
-            // Si el servidor ya devolvió identified_species, el panel ya está visible por Jinja.
-
-            // ===== Intento de reproducir automáticamente si vinimos de "Identificar" =====
+            // Intento de reproducir automáticamente tras identificar
             (function tryAutoPlayAfterIdentify(){
                 const shouldPlay = localStorage.getItem('play_last_audio') === '1';
-                // El audio que se reproduce es el audio subido por el usuario (audio_filename pasado por Jinja)
                 const uploadedAudio = document.getElementById('preview-audio');
-                // Nota: preview-audio puede contener un <source> o src establecido; lo usamos.
                 if(shouldPlay && uploadedAudio){
-                    // Intentar reproducir
                     uploadedAudio.play().then(() => {
-                        // Éxito: quitar el flag
                         localStorage.removeItem('play_last_audio');
                     }).catch((err) => {
-                        // Autoplay bloqueado: mostrar un botón discreto para que el usuario pulse
-                        localStorage.removeItem('play_last_audio'); // limpiamos el flag para evitar reintentos infinitos
-                        // Crear botón y colocarlo en la descripción (o en el panel izquierdo)
+                        localStorage.removeItem('play_last_audio');
                         const fallbackBtn = document.createElement('button');
                         fallbackBtn.className = 'play-fallback';
                         fallbackBtn.innerText = 'Reproducir sonido del audio cargado';
                         fallbackBtn.onclick = function() {
                             uploadedAudio.play().catch(e => console.log('Error al reproducir manualmente:', e));
-                            // opcional: ocultar el botón tras reproducir
                             fallbackBtn.style.display = 'none';
                         };
-                        // intentar añadir al panel de resultados si existe, sino al contenedor izquierdo
                         const target = document.querySelector('.description-box') || document.querySelector('.container');
                         if(target) target.appendChild(fallbackBtn);
                     });
                 }
             })();
-
         });
     </script>
 </body>

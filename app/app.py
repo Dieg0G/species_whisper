@@ -3,7 +3,7 @@ import os
 import shutil
 from urllib.parse import quote
 from werkzeug.utils import secure_filename
-#from integrator import get_species_prediction
+from integrator import get_species_prediction
 
 app = Flask(__name__)
 app.secret_key = "clave_secreta_segura"  # cambia esto en producción
@@ -72,45 +72,63 @@ def index():
 
 @app.route("/identify", methods=["POST"])
 def identify():
-    # --- Nueva parte: guardar audio si se envía ---
     file = request.files.get("audio_file")
     audio_filename = None
-    if file:
-        audios_dir = os.path.join(MEDIA_DIR, "audios")
-        os.makedirs(audios_dir, exist_ok=True)
+    raw_path = None
+
+    # Usa SIEMPRE el mismo directorio base de MEDIA_DIR
+    audios_dir = os.path.join(MEDIA_DIR, "audios")
+    os.makedirs(audios_dir, exist_ok=True)
+
+    if file and file.filename != "":
         safe_name = secure_filename(file.filename)
         raw_path = os.path.join(audios_dir, safe_name)
         file.save(raw_path)
         audio_filename = os.path.join("media", "audios", safe_name)
         session["last_audio"] = audio_filename
-        print("📥 Archivo recibido y guardado:", raw_path)
-    
-    # Simulación del integrador (valor de ejemplo)
-    especie_identificada = "Buteogallus solitarius"
-    #especie_identificada = get_species_prediction(audio_path) or "Especie no identificada"
-    
+        print("📥 Archivo recibido y guardado en:", raw_path)
+    else:
+        print("⚠️ No se recibió ningún archivo nuevo, usando último de sesión si existe.")
 
-    # Normalizar para búsqueda de archivos (reemplazar espacios)
+    # Usa el audio recién cargado o el último de sesión
+    audio_path = raw_path or session.get("last_audio", None)
+
+    if audio_path:
+        # Asegurar ruta absoluta completa
+        if not os.path.isabs(audio_path):
+            audio_path = os.path.join(BASE_DIR, "static", audio_path)
+        audio_path = os.path.normpath(audio_path)
+        print("🎧 Ruta del audio a procesar:", audio_path)
+
+        if os.path.exists(audio_path):
+            resultado_modelo = get_species_prediction(audio_path)
+            print("🔍 Resultado crudo del modelo:", resultado_modelo)
+            especie_identificada = resultado_modelo or "Especie no identificada"
+        else:
+            print("⚠️ No se encontró el archivo de audio en disco:", audio_path)
+            especie_identificada = "Especie no identificada"
+    else:
+        print("⚠️ No se recibió ningún audio ni se encontró en sesión.")
+        especie_identificada = "Especie no identificada"
+
+    # Normalizar nombre de especie
     especie_filename = especie_identificada.replace(" ", "_")
 
-    # Buscar imagen de ave con distintas extensiones
+    # Buscar imagen y mapa
     imagen_ave_path, imagen_ext = find_file_with_extensions(AVES_DIR, especie_filename, AVES_EXTS)
     imagen_ave_rel = f"media/aves/{quote(especie_filename)}{imagen_ext}" if imagen_ave_path else None
 
-    # Buscar mapa de distribución con distintas extensiones
     mapa_ave_path, mapa_ext = find_file_with_extensions(MAPAS_DIR, especie_filename, MAPA_EXTS)
     mapa_ave_rel = f"media/mapa/{quote(especie_filename)}{mapa_ext}" if mapa_ave_path else None
 
-    # Buscar descripción en descripciones.txt
+    # Buscar descripción
     descripcion = "Descripción no disponible para esta especie."
     if os.path.exists(DESCRIPCIONES_FILE):
         with open(DESCRIPCIONES_FILE, "r", encoding="utf-8") as f:
             contenido = f.read().splitlines()
-
         especie_tag = f"[{especie_identificada}]"
         for i, linea in enumerate(contenido):
             if linea.strip().lower() == especie_tag.lower():
-                # Tomar las líneas hasta el próximo bloque entre []
                 descripcion_lineas = []
                 for j in range(i + 1, len(contenido)):
                     if contenido[j].startswith("[") and contenido[j].endswith("]"):
@@ -119,19 +137,19 @@ def identify():
                 descripcion = " ".join(linea.strip() for linea in descripcion_lineas if linea.strip())
                 break
 
-    # Recuperar el último audio cargado desde la sesión (no lo guardamos de nuevo)
     audio_filename = session.get("last_audio", None)
 
     return render_template(
         "index.html",
         background_image=BACKGROUND_IMAGE,
         icon_image=ICON_IMAGE,
-        audio_filename=audio_filename,  # Pasamos este nombre al template
+        audio_filename=audio_filename,
         identified_species=especie_identificada,
         identified_species_image=imagen_ave_rel,
         distribution_map_image=mapa_ave_rel,
         species_description=descripcion
     )
+
 
 
 if __name__ == "__main__":
