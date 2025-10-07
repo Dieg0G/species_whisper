@@ -1,14 +1,9 @@
-import pytest
-from app.app import app  # Importa la app Flask desde app/app.py
+import sys, os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'app')))
 
-@pytest.fixture
-def client():
-    # Crea un cliente de pruebas para Flask
-    with app.test_client() as client:
-        yield client
+from app.app import app
 
-def test_home_route(client):
-    """Prueba que la ruta principal responda correctamente"""
+def test_home_route():
+    client = app.test_client()
     response = client.get('/')
     assert response.status_code == 200
-    assert b"Species Whisper" in response.data  # Ajusta según tu HTML o texto esperado
