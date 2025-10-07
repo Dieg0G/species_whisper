@@ -39,15 +39,21 @@ cd species_whisper
 
 **2. Crea un Entorno Virtual**
 Se recomienda utilizar un entorno virtual para aislar las dependencias del proyecto.
-```bash
-python -m venv .venv
-source .venv/bin/activate  # En Windows: .venv\Scripts\activate
+*** Instalar uv si no está disponible**
+```
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+uv venv
+uv pip install -r requirements.txt
+source .venv/bin/activate  # En Unix/Linux/Mac
+# En Windows: .venv\Scripts\activate
+
 ```
 
 **3. Instala las Dependencias**
-Las dependencias están listadas en `requirements.txt` y pueden ser instaladas usando `pip`.
+Las dependencias están listadas en `requirements.txt` y pueden ser instaladas usando `uv`.
 ```bash
-pip install -r requirements.txt
+uv pip install -r requirements.txt
 ```
 
 **4. Descarga el Modelo BirdNET**
@@ -55,32 +61,12 @@ El script de análisis espera que el modelo `BirdNET-GLOBAL-6K-V2.4-Model-INT8.t
 
 *Nota: El modelo se puede encontrar en el repositorio oficial de BirdNET o en fuentes de modelos de TensorFlow.*
 
-##  kullanım
+## Usando la Aplicación Web
 
-Puedes interactuar con el proyecto a través de la aplicación web o directamente desde la línea de comandos.
-
-**1. Usando la Aplicación Web**
-La aplicación web proporciona una interfaz gráfica para subir archivos de audio y ver los resultados del análisis. Para iniciarla, ejecuta el siguiente comando desde el directorio raíz del proyecto:
+Puedes interactuar con el proyecto a través de la aplicación web que proporciona una interfaz gráfica para subir archivos de audio y ver los resultados del análisis. Para iniciarla, ejecuta el siguiente comando desde el directorio raíz del proyecto:
 
 ```bash
-uvicorn app.app:app --reload
+flask --app app.py run --reload
 ```
-Luego, abre tu navegador y ve a `http://127.0.0.1:8000`.
+Luego, abre tu navegador y ve a `http://127.0.0.1:5000`.
 
-**2. Usando la Línea de Comandos**
-Puedes analizar un archivo de audio directamente usando el script `main.py`. Modifica la variable `AUDIO_FILE_TO_ANALYZE` dentro del script para apuntar a tu archivo de audio.
-
-```python
-# main.py
-if __name__ == "__main__":
-    # Cambia este valor por la ruta de tu archivo de audio
-    AUDIO_FILE_TO_ANALYZE = "tests/test_audio/2.wav"
-    
-    analyze_audio(AUDIO_FILE_TO_ANALYZE)
-```
-
-Luego, ejecuta el script:
-```bash
-python main.py
-```
-Los resultados se mostrarán en la consola.
