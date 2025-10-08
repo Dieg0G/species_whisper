@@ -66,6 +66,47 @@ pytest app.py
 # Prueba para la carga de modelos
 pytest load_model.py
 ```
+---
+
+## 📝 Documentación de la Aplicación Flask
+
+Esta aplicación permite **identificar aves mediante sus cantos** a través de una interfaz web sencilla.
+
+### 1️⃣ Descripción general
+- Al ejecutar `app.py`, se despliega un servidor local en `http://127.0.0.1:5000`.  
+- La página inicial muestra una interfaz para **cargar archivos de audio** y realizar la identificación.
+
+### 2️⃣ Uso de la interfaz
+1. **Cargar audio**  
+   - Hacer clic en **"Elegir archivo"** y seleccionar el canto a identificar.
+
+2. **Opciones después de cargar el audio**  
+   - **Escuchar el canto** usando el reproductor de la interfaz.  
+   - **Identificar ave**: al hacer clic, Flask llama al endpoint:
+     ```
+     http://127.0.0.1:5000/identify
+     ```
+
+3. **Proceso interno**  
+   - El audio se guarda en `app/statics/media/audio`.  
+   - `integrator.py` se ejecuta secuencialmente:
+     1. Procesar el audio  
+     2. Cargar el modelo entrenado  
+     3. Identificar la especie de ave  
+   - El nombre en inglés de la especie identificada se devuelve a `app.py`, que busca los **datos correspondientes** (imagen, mapa y descripción) para mostrarlos en pantalla.
+
+4. **Repetir proceso**  
+   - Para identificar otro canto, basta con hacer clic nuevamente en **"Elegir archivo"** y repetir el flujo.
+
+### 3️⃣ Ejemplos visuales
+
+- Interfaz inicial (pantalla para cargar audio):
+
+![Interfaz inicial](reports\flask\inicio.png)
+
+- Resultado de identificación (con especie, imagen y mapa):
+
+![Resultado de identificación](reports\flask\prueba.png)
 
 ---
 
@@ -124,8 +165,8 @@ species_whisper/
 
 ## 👥 Autores
 
-- **Diego**  
-- **César**
+- **Diego Guillen**  
+- **César Campos**
 
 ---
 

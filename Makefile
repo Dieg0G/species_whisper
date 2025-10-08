@@ -24,7 +24,7 @@ run:
 # Ejecutar pruebas unitarias
 test:
 	@echo "🧪 Ejecutando pruebas con pytest..."
-	$(VENV)/Scripts/python -m pytest -v 
+	$(VENV)/Scripts/python -m pytest -v --disable-warnings
 
 # Construir imagen Docker
 docker-build:
