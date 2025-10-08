@@ -1,8 +1,16 @@
+# MLflow
+mlruns/
+mlflow.db
+
 # Python
 __pycache__/
 *.py[cod]
 *$py.class
 *.so
+*.pyc
+
+# Environment
+.venv/
 venv/
 env/
 .env
