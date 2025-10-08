@@ -1,13 +1,13 @@
 [Tinamus osgoodi]
 Torito de los Andes. Habita en bosques nublados de alta montaña, entre los 1.500 y 3.000 metros de altitud. Es un ave tímida y solitaria, difícil de observar, que suele desplazarse lentamente entre la hojarasca buscando frutos y pequeños invertebrados. Su conservación depende de la protección de los bosques andinos, ya que la tala y fragmentación del hábitat son sus principales amenazas. Se reproduce en madrigueras poco profundas, donde la hembra incuba los huevos en soledad, haciendo de esta especie un indicador sensible de la salud del ecosistema andino.
 
-[Oxyura jamaicensis]
+[Ruddy Duck]
 Pato rufo. Se reconoce por su pico azul brillante y su cola rígida que suele mantener erguida, lo que le da un perfil muy característico en el agua. Es un gran buceador que se alimenta de plantas acuáticas, pequeños crustáceos e invertebrados, permaneciendo largos periodos sumergido para buscar alimento. Su presencia indica buena salud de los humedales y es un componente importante para el equilibrio de las comunidades acuáticas. Durante la temporada de reproducción, los machos exhiben un plumaje más intenso para atraer a las hembras, y construyen nidos bien escondidos entre la vegetación densa.
 
-[Penelope perspicax]
+[Cauca Guan]
 Pava caucana. Ave endémica de Colombia y considerada en peligro crítico. Vive en bosques húmedos de la cordillera Central, desplazándose en grupos pequeños mientras se alimenta de frutos, semillas y brotes jóvenes. Cumple un rol ecológico clave al dispersar semillas de los árboles que consume, favoreciendo la regeneración del bosque. La pérdida de hábitat por deforestación y caza ilegal constituye la mayor amenaza para esta especie, que además tiene una baja tasa de reproducción y requiere áreas extensas de bosque bien conservado para sobrevivir.
 
-[Odontophorus strophium]
+[Gorgeted Wood-Quail]
 Perdiz colorada. Se encuentra en los bosques húmedos del altiplano cundiboyacense, desplazándose con cautela entre la vegetación densa y restos de hojarasca. Es esquiva y difícil de observar, lo que ha limitado los estudios sobre su comportamiento. Su dieta consiste en semillas, insectos y pequeños frutos, contribuyendo al control de insectos y a la dispersión de plantas. La pérdida de hábitat y la fragmentación de los bosques representan su principal amenaza de conservación, y su presencia indica ecosistemas de montaña relativamente intactos.
 
 [Podiceps occipitalis]
@@ -28,13 +28,13 @@ Cóndor de los Andes. El ave voladora más grande del mundo, con una envergadura
 [Buteogallus solitarius]
 Águila solitaria. Rapaz de gran tamaño que habita bosques montanos y selvas húmedas tropicales y subtropicales. Se caracteriza por su plumaje oscuro, fuerte pico curvado y garras poderosas. Es un depredador tope que regula poblaciones de aves, mamíferos y reptiles pequeños, siendo vital para el equilibrio de las cadenas tróficas. Prefiere áreas de bosque con buena cobertura y se muestra muy territorial. Su conservación depende de la protección de bosques maduros frente a la deforestación y la caza.
 
-[Rallus semiplumbeus]
+[Bogota Rail]
 Rascón andino. Especie endémica de los humedales de la Sabana de Bogotá, donde se mueve entre juncales y pastizales inundados. De hábitos reservados y nocturnos, se esconde entre la vegetación acuática para evitar depredadores. Su alimentación incluye insectos, pequeños crustáceos y semillas. Está en peligro debido al drenaje de humedales, contaminación y urbanización creciente, siendo un indicador de la salud ambiental de estos ecosistemas altoandinos.
 
-[Leptotila conoveri]
+[Tolima Dove]
 Paloma de Conover. Especie poco conocida y endémica de Colombia, que habita bosques secos tropicales y bordes de selva donde se alimenta principalmente de frutos, semillas y brotes tiernos. Su comportamiento discreto dificulta su observación, y la fragmentación del hábitat por la agricultura representa la mayor amenaza para su supervivencia. La conservación de esta especie requiere áreas protegidas y la restauración de corredores de bosque conectados.
 
-[Notharchus subtectus]
+[Pied Puffbird]
 Buco del Chocó. Ave típica de los bosques húmedos del Chocó biogeográfico, reconocida por su plumaje blanco y negro y su aspecto robusto. Se alimenta de insectos grandes como escarabajos, mariposas y orugas, así como de pequeños vertebrados, desempeñando un papel importante en el control de plagas. Prefiere los estratos altos del bosque para cazar y anidar, construyendo nidos en cavidades naturales o en troncos huecos. Su conservación depende de la protección de los bosques húmedos frente a la tala y expansión agrícola.
 
 [Eriocnemis isabellae]
@@ -49,7 +49,7 @@ Carpintero de Guayaquil. Es un gran pájaro carpintero con cresta roja llamativa
 [Ara ambiguus]
 Guacamaya verde mayor. Una de las guacamayas más grandes de América, con plumaje verde brillante y pico fuerte adaptado para romper frutos duros. Se encuentra en peligro por la deforestación y el tráfico ilegal de fauna silvestre. Vive en grupos sociales complejos y forma parejas monógamas que cuidan a sus crías durante largos periodos. Su presencia es un indicador de bosques tropicales bien conservados y saludables, y contribuye a la dispersión de semillas de gran tamaño.
 
-[Cistothorus apolinari]
+[Apolinar's Wren]
 Cucarachero de Apolinar. Endémico de humedales altoandinos de Colombia, su pequeño tamaño y canto fuerte lo hacen difícil de detectar visualmente pero fácil de localizar acústicamente. Se alimenta de insectos y arañas que encuentra entre la vegetación acuática. Está en grave peligro debido a la pérdida de su hábitat natural por drenaje de humedales y expansión urbana, lo que reduce la disponibilidad de sitios de anidación y alimentación.
 
 [Chlorospingus flavovirens]
