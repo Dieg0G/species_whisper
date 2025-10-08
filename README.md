@@ -183,8 +183,9 @@ manager = MLflowModelManager(
 )
 ```
 
-Registra un modelo con manager.log_tflite_model(tflite_model_path="src/models/audio-model.tflite", artifact_path="birdnet_tflite_pyfunc", registered_model_name="birdnet-tflite-test"), asegurándote de que el archivo .tflite exista y la forma de entrada coincida (e.g., (1, 144000)).
-Para cargar y predecir, usa loaded_model = manager.load_model() para obtener la última versión del modelo y prediction = manager.predict(np.random.rand(1, 144000).astype(np.float32)) para realizar predicciones. Asegúrate de que las dependencias (mlflow, tensorflow, numpy) estén instaladas y que los datos de entrada tengan la forma correcta. Los errores se registran mediante logging para facilitar la depuración.
+Registra un modelo con: ```python  manager.log_tflite_model(tflite_model_path="src/models/audio-model.tflite", artifact_path="birdnet_tflite_pyfunc", registered_model_name="birdnet-tflite-test")```, asegurándote de que el archivo .tflite exista y la forma de entrada coincida (e.g., (1, 144000)).
+Para cargar y predecir, usa ```python loaded_model = manager.load_model() ``` para obtener la última versión del modelo y 
+```python prediction = manager.predict(np.random.rand(1, 144000).astype(np.float32))``` para realizar predicciones. Asegúrate de que las dependencias (mlflow, tensorflow, numpy) estén instaladas y que los datos de entrada tengan la forma correcta. Los errores se registran mediante logging para facilitar la depuración.
 ```
 
 ## 🧩 Estructura del Proyecto
