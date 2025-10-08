@@ -146,7 +146,43 @@ make docker-run
 
 ---
 
-## 🧩 Estructura del Proyecto (sugerida)
+---
+```
+# Iniciar Servidor MLflow
+
+Para iniciar el servidor MLflow, puedes utilizar el comando `mlflow server` seguido de las opciones `--host` y `--port` para especificar la dirección IP y el puerto que deseas utilizar. Por ejemplo, para iniciar el servidor en el puerto 5000, puedes utilizar el siguiente comando:
+
+```bash
+mlflow server --host 127.0.0.1 --port 5000
+```
+
+También puedes especificar un backend storage utilizando opciones como `--backend-store-uri` y `--default-artifact-root`. Por ejemplo, para utilizar una base de datos PostgreSQL y almacenamiento en S3, puedes utilizar el siguiente comando:
+
+```bash
+mlflow server \
+    --backend-store-uri postgresql://user:password@localhost/mlflow \
+    --default-artifact-root s3://my-mlflow-bucket/ \
+    --host 0.0.0.0 \
+    --port 5000
+```
+
+## Uso del MLflow Manager
+
+El MLflow Manager es una herramienta que te permite interactuar con el servidor MLflow y realizar tareas como registrar experimentos de entrenamiento, cargar modelos y registrar identificaciones de aves. Puedes crear un gestor con un servidor local utilizando el siguiente código:
+
+```python
+from mlflow_manager import MLflowModelManager
+
+manager = MLflowModelManager(
+    tracking_uri="http://127.0.0.1:5000",
+    experiment_name="BirdWhisper"
+)
+```
+
+Puedes registrar un experimento de entrenamiento utilizando el método `log_model_training` y cargar un modelo desde el registro utilizando el método `load_model_from_registry`. También puedes registrar identificaciones de aves utilizando el método `log_birdnet_experiment`.
+```
+
+## 🧩 Estructura del Proyecto
 
 ```
 species_whisper/
