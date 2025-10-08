@@ -1,50 +1,12 @@
-# Ignora entornos virtuales
-venv/
-.venv/
-env/
-ENV/
-
-# Ignora cachés y compilados
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
-
-# Ignora dependencias locales
-*.egg-info/
-*.eggs/
+.venv/
+env/
 build/
 dist/
-
-# Ignora archivos grandes o innecesarios
-*.wav
-*.mp3
-*.zip
-*.tar
-*.tar.gz
-*.h5
-*.pkl
-*.pt
-*.onnx
-*.npy
-*.npz
-*.csv
-*.tsv
-*.json
-
-# Ignora bases de datos o logs
-*.db
-*.sqlite3
+*.egg-info/
 *.log
-
-# Ignora directorios de datos o modelos pesados
-data/
-datasets/
-notebooks/
-docs/
-
-# Ignora archivos de sistema y de IDE
-.DS_Store
-*.swp
-.idea/
-.vscode/
+*.txt~
+tests/
