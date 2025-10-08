@@ -2,35 +2,28 @@
 # 🐦 Makefile - Species Whisper
 # ===============================
 
-# Nombre de la imagen Docker
 IMAGE_NAME = species_whisper
-
-# Puerto por defecto de Flask
 PORT = 5000
-
-# ===============================
-# 🔧 Configuración del entorno
-# ===============================
 
 .PHONY: install run test docker-build docker-run clean help
 
 # Crear entorno virtual e instalar dependencias
 install:
 	@echo "📦 Creando entorno virtual e instalando dependencias..."
-	python -m venv venv
-	venv/bin/pip install -r requirements.txt
+	python -m venv .venv
+	.venv/Scripts/pip install --upgrade pip
+	.venv/Scripts/pip install -r requirements.txt
 	@echo "✅ Instalación completada."
 
 # Ejecutar la app Flask localmente
 run:
 	@echo "🚀 Iniciando aplicación Flask..."
-	python app.py
+	python app/app.py
 
 # Ejecutar pruebas unitarias
 test:
 	@echo "🧪 Ejecutando pruebas con pytest..."
-	pytest app.py
-	pytest load_model.py
+	pytest -v
 
 # Construir imagen Docker
 docker-build:
@@ -45,7 +38,7 @@ docker-run:
 # Limpiar archivos temporales
 clean:
 	@echo "🧹 Limpiando entorno..."
-	rm -rf __pycache__ .pytest_cache venv
+	rm -rf __pycache__ .pytest_cache .venv
 	@echo "✅ Limpieza completada."
 
 # Mostrar ayuda
