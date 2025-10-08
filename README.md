@@ -220,6 +220,34 @@ siempre y cuando cualquier distribución o versión modificada también sea de c
 
 Consulta el archivo [LICENSE](LICENSE) para más información.
 
+---
+## Creditos de las imagenes
+
+# Créditos de Imágenes
+
+Las imágenes listadas a continuación provienen de **Macaulay Library / Cornell Lab of Ornithology (vía eBird)** y son propiedad de los respectivos autores. Se usan en este proyecto con fines educativos y de investigación. Antes de cualquier uso comercial o redistribución, verificar la licencia y contactar al autor si es necesario.
+
+- **Tinamus osgoodi** (Black Tinamou) — Brayan Coral Jaramillo — ML26233561. :contentReference[oaicite:0]{index=0}  
+- **Ruddy Duck** (*Oxyura jamaicensis*) — (ej. ML618526817) — contributor/asset en Macaulay Library. :contentReference[oaicite:1]{index=1}  
+- **Cauca Guan** — (ej. ML22265691 / ML201224271) — asset(s) en Macaulay Library. :contentReference[oaicite:2]{index=2}  
+- **Gorgeted Wood-Quail** (*Odontophorus strophium*) — Mauricio Álvarez (ej. ML250808). :contentReference[oaicite:3]{index=3}  
+- **Podiceps occipitalis** (Silvery Grebe) — Daniel Pettersson / Pio Marshall (ej. ML144655831 / ML168457431). :contentReference[oaicite:4]{index=4}  
+- **Phoenicopterus ruber** (American/Caribbean Flamingo) — asset(es) en Macaulay Library (varios ML recientes listados). :contentReference[oaicite:5]{index=5}  
+- **Sula leucogaster** (Brown Booby / Masked Booby group) — Timothy Barksdale (ej. ML428555). :contentReference[oaicite:6]{index=6}  
+- **Egretta rufescens** (Reddish Egret) — asset(s) en Macaulay Library (ej. ML625527611). :contentReference[oaicite:7]{index=7}  
+- **Vultur gryphus** (Andean Condor) — Pablo Re / otros (ej. ML434115881). :contentReference[oaicite:8]{index=8}  
+- **Buteogallus solitarius** (Solitary Eagle) — asset(s) en Macaulay Library (ej. ML630019576 / ML61567901). :contentReference[oaicite:9]{index=9}  
+- **Bogota Rail** (*Rallus semiplumbeus*) — Lisa & Li Li (ej. ML585960821 / ML615330810). :contentReference[oaicite:10]{index=10}  
+- **Tolima Dove** (*Leptotila conoveri*) — Edier Rojas Parra (ej. ML598418671). :contentReference[oaicite:11]{index=11}  
+- **Pied Puffbird** (*Notharchus tectus*) — varios contributors (ej. ML201952871 / ML619050118 / ML201701501). :contentReference[oaicite:12]{index=12}  
+- **Eriocnemis isabellae** (Gorgeted Puffleg) — ProAves Colombia / otros (ej. ML265216381). :contentReference[oaicite:13]{index=13}  
+- **Capito hypoleucus** (White-mantled Barbet) — Juan Fernando Giraldo Lopera (ej. ML639829783). :contentReference[oaicite:14]{index=14}  
+- **Campephilus gayaquilensis** (Guayaquil Woodpecker) — Gregory Griffith / Chris Thomas (ej. ML436797 / ML618939526). :contentReference[oaicite:15]{index=15}  
+- **Ara ambiguus** (Great Green Macaw) — Hal & Kirsten Snyder / Hervé JACOB (ej. ML204445871 / ML443538601). :contentReference[oaicite:16]{index=16}  
+- **Apolinar's Wren** (*Cistothorus apolinari*) — varios assets; ejemplo ML613904284 / ML616340778. :contentReference[oaicite:17]{index=17}  
+- **Chlorospingus** (relacionado a *Chlorospingus flavopectus* / "Common Chlorospingus") — varios contributors (ej. ML132196911 / ML524469541 / ML623321090). :contentReference[oaicite:18]{index=18}  
+- **Hypopyrrhus pyrohypogaster** (Red-bellied Grackle) — varios assets (ej. ML277859941 / ML633531268 / ML610261738). :contentReference[oaicite:19]{index=19}
+
 
 ---
 
