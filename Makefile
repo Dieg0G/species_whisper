@@ -4,6 +4,7 @@
 
 IMAGE_NAME = species_whisper
 PORT = 5000
+VENV = .venv
 
 .PHONY: install run test docker-build docker-run clean help
 
@@ -23,7 +24,7 @@ run:
 # Ejecutar pruebas unitarias
 test:
 	@echo "🧪 Ejecutando pruebas con pytest..."
-	pytest -v
+	$(VENV)/Scripts/python -m pytest -v 
 
 # Construir imagen Docker
 docker-build:
