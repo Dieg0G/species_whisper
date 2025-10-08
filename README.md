@@ -1,3 +1,7 @@
+[![Python](https://img.shields.io/badge/Python-3.9-blue.svg)](https://www.python.org/)
+[![TensorFlow](https://img.shields.io/badge/TensorFlow-2.13.0-orange.svg)](https://www.tensorflow.org/)
+[![License](https://img.shields.io/badge/License-GPL-blue.svg)](https://www.gnu.org/licenses/gpl.html)
+
 # 🐦 Species Whisper
 
 **Species Whisper** es una aplicación de inteligencia artificial para el **reconocimiento de cantos de aves** mediante grabaciones de audio.  
