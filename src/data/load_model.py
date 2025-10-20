@@ -8,16 +8,14 @@ import tensorflow as tf
 import logging
 import os
 from scipy.special import softmax
-from pathlib import Path
 
 # Configurar logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-PROJECT_ROOT = Path(__file__).resolve().parents[2]  # sube hasta la raíz del proyecto
-DEFAULT_MODEL_PATH = PROJECT_ROOT / "src" / "models" / "audio-model.tflite"
-DEFAULT_LABELS_PATH = PROJECT_ROOT / "src" / "models" / "labels" / "af.txt"
-
+# Configuración por defecto
+DEFAULT_MODEL_PATH = os.path.join("src", "models", "audio-model.tflite")
+DEFAULT_LABELS_PATH = os.path.join("src", "models", "labels", "af.txt")
 
 
 class BirdNETClassifier:
@@ -268,7 +266,7 @@ class BirdNETClassifier:
         return aggregated[:self.top_k]
 
 
-def create_default_classifier():
+def bird_classifier():
     """
     Crea un clasificador con rutas predeterminadas
     Soporta variables de entorno para personalización:
@@ -294,11 +292,11 @@ if __name__ == "__main__":
     print("\nPara usar este módulo:")
     print("1. Coloca el modelo audio-model.tflite en la carpeta 'src/models/'")
     print("2. Opcionalmente, crea un archivo labels.txt con los nombres de especies")
-    print("3. Importa y usa la clase BirdNETClassifier en tu código")
+    
     
     # Crear clasificador con rutas predeterminadas
     try:
-        classifier = create_default_classifier()
+        classifier = bird_classifier()
         print("\n✓ Clasificador creado exitosamente con rutas predeterminadas")
     except FileNotFoundError as e:
         print(f"\n✗ Error: {e}")

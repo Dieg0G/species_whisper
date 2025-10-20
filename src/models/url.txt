@@ -1,1 +1,3 @@
-https://zenodo.org/records/15050749/files/BirdNET_v2.4_tflite.zip?download=1
+classifier = BirdNETClassifier(
+    model_path="src/models/BirdNET-GLOBAL-6K-V2.4-Model-INT8.tflite"
+)

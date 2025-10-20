@@ -1,0 +1,26 @@
+stages:
+  - test
+  - build
+
+test:
+  stage: test
+  image: python:3.11-slim
+  before_script:
+    - python --version
+    - pip install --upgrade pip
+    - grep -v "pywin32" requirements.txt > requirements_nopywin.txt
+    - pip install -r requirements_nopywin.txt
+    - pip install pytest
+    - export PYTHONPATH=$PYTHONPATH:$(pwd)
+  script:
+    - pytest --maxfail=1 --disable-warnings -q
+
+build:
+  stage: build
+  image: docker:latest
+  services:
+    - docker:dind
+  script:
+    - docker build -t species_whisper:latest .
+  only:
+    - main

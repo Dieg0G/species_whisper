@@ -4,7 +4,7 @@ import tensorflow as tf
 import numpy as np
 import os
 import logging
-from src.data.audio_processor import AudioProcessor 
+from src.data.audio_processor import AudioProcessor
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
