@@ -15,4 +15,5 @@ ENV FLASK_RUN_PORT=5000
 EXPOSE 5000
 
 # Comando de ejecución
-CMD ["flask", "run"]
+#CMD ["flask", "run"]
+CMD ["flask", "run", "--host=0.0.0.0", "--port=5000"]
